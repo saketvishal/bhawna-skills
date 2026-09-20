@@ -17,7 +17,10 @@ Write-Host "================================"
 Write-Host "Repository: $FullName"
 Write-Host ""
 
-# Verify required tools
+# ------------------------------------------------------------
+# Required tools
+# ------------------------------------------------------------
+
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     throw "Git is not installed or not available on PATH."
 }
@@ -26,16 +29,23 @@ if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
     throw "GitHub CLI is not installed or not available on PATH."
 }
 
-# Verify GitHub authentication
+# ------------------------------------------------------------
+# GitHub authentication
+# ------------------------------------------------------------
+
 gh auth status
 
 if ($LASTEXITCODE -ne 0) {
     throw "GitHub CLI is not authenticated. Run: gh auth login"
 }
 
-# Initialize Git only if needed
+# ------------------------------------------------------------
+# Git repository
+# ------------------------------------------------------------
+
 if (-not (Test-Path ".git")) {
     Write-Host "Initializing Git repository..."
+
     git init
 
     if ($LASTEXITCODE -ne 0) {
@@ -49,12 +59,21 @@ if ($LASTEXITCODE -ne 0) {
     throw "Could not set branch to main."
 }
 
-# Commit current project state if anything changed
+# ------------------------------------------------------------
+# Commit pending changes
+# ------------------------------------------------------------
+
 git add .
+
+if ($LASTEXITCODE -ne 0) {
+    throw "git add failed."
+}
 
 git diff --cached --quiet
 
-if ($LASTEXITCODE -eq 1) {
+$DiffExitCode = $LASTEXITCODE
+
+if ($DiffExitCode -eq 1) {
     Write-Host "Committing current changes..."
 
     git commit -m "Prepare Bhawna Skills v0.1.0"
@@ -63,20 +82,33 @@ if ($LASTEXITCODE -eq 1) {
         throw "git commit failed."
     }
 }
-elseif ($LASTEXITCODE -ne 0) {
-    throw "Could not inspect staged changes."
-}
-else {
+elseif ($DiffExitCode -eq 0) {
     Write-Host "No uncommitted changes."
 }
+else {
+    throw "Could not inspect staged changes."
+}
 
-# Check whether origin already exists
-$OriginUrl = git remote get-url origin 2>$null
+# ------------------------------------------------------------
+# Check whether origin exists
+# ------------------------------------------------------------
 
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "Origin already exists:"
-    Write-Host $OriginUrl
+$Remotes = @(git remote)
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Could not inspect Git remotes."
+}
+
+$OriginExists = $Remotes -contains "origin"
+
+# ------------------------------------------------------------
+# Publish
+# ------------------------------------------------------------
+
+if ($OriginExists) {
+
     Write-Host ""
+    Write-Host "Remote 'origin' already exists."
     Write-Host "Pushing main..."
 
     git push -u origin main
@@ -86,19 +118,40 @@ if ($LASTEXITCODE -eq 0) {
     }
 }
 else {
+
     Write-Host ""
     Write-Host "Creating public GitHub repository $FullName..."
 
-    gh repo create $FullName `
-        --public `
-        --source=. `
-        --remote=origin `
-        --push `
-        --description "Guardrails and reusable skills for reliable AI coding agents."
+    $CreateArgs = @(
+        "repo"
+        "create"
+        $FullName
+        "--public"
+        "--source=."
+        "--remote=origin"
+        "--push"
+        "--description"
+        "Guardrails and reusable skills for reliable AI coding agents."
+    )
+
+    & gh @CreateArgs
 
     if ($LASTEXITCODE -ne 0) {
         throw "GitHub repository creation failed."
     }
+}
+
+# ------------------------------------------------------------
+# Verify
+# ------------------------------------------------------------
+
+Write-Host ""
+Write-Host "Verifying remote..."
+
+git remote -v
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Could not verify Git remote."
 }
 
 Write-Host ""
