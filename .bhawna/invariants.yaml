@@ -1,0 +1,20 @@
+project: bhawna-skills
+version: 1
+invariants:
+  - id: ARCH-001
+    title: Agent and provider neutrality
+    statement: The core must not depend on a single coding agent or model provider.
+    rationale: Teams should be able to change agents and evaluators without rewriting project policy.
+    severity: block
+    applies_to: ["*"]
+  - id: ARCH-002
+    title: Examples are evaluation fixtures
+    statement: Known examples and failures must not become example-specific production logic.
+    rationale: Guardrails must generalize to objectives not seen during implementation.
+    severity: block
+    applies_to: ["*"]
+  - id: SEC-001
+    title: Secrets stay outside project files
+    statement: API keys and credentials must not be committed to repository configuration.
+    severity: block
+    applies_to: ["*"]
