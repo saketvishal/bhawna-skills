@@ -15,6 +15,11 @@ body:
     attributes:
       label: Current agent / tool
       description: e.g. Claude Code, Codex, Cursor, a custom loop.
+  - type: input
+    id: project_type
+    attributes:
+      label: Project type
+      description: e.g. Python CLI, API, full-stack, AI app.
   - type: textarea
     id: problem
     attributes:
@@ -25,14 +30,19 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: Expected guardrail behavior
+      label: Expected behavior
       description: PASS, REVIEW, BLOCKED, or a new capability.
     validations:
       required: true
   - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Include command and verdict if applicable.
+  - type: textarea
     id: example
     attributes:
-      label: Example objective / invariant
+      label: Relevant decision / invariant and objective
       description: Redact secrets. Skip if you cannot share.
   - type: textarea
     id: evaluation

@@ -61,21 +61,7 @@ PostgreSQL + Qdrant dependencies detected
 
 Requires [uv](https://docs.astral.sh/uv/).
 
-Once the package is on PyPI:
-
-```bash
-uvx --from bhawna-skills bhawna --help
-uvx --from bhawna-skills bhawna check objective.md
-```
-
-Or install the CLI as a user tool:
-
-```bash
-uv tool install bhawna-skills
-bhawna --help
-```
-
-From a clone (development):
+**From source (current public path).** PyPI Trusted Publishing is prepared but not yet configured on pypi.org, so `uvx --from bhawna-skills` is not available until that one-time publisher is added.
 
 ```bash
 git clone https://github.com/saketvishal/bhawna-skills.git
@@ -83,6 +69,14 @@ cd bhawna-skills
 uv sync --extra dev
 uv run bhawna --help
 ```
+
+After PyPI publication:
+
+```bash
+uvx --from bhawna-skills bhawna --help
+```
+
+(`uvx bhawna` looks up a different distribution name.)
 
 ## Quick start
 
@@ -217,14 +211,14 @@ uv run pytest
 
 CI runs the same commands plus a package build and an installed-artifact CLI smoke test. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
-## Feedback / Ideas
+## Feedback & Ideas
 
-- [v0.1.0 feedback discussion](https://github.com/saketvishal/bhawna-skills/discussions/1)
-- [GitHub Discussions](https://github.com/saketvishal/bhawna-skills/discussions) (Ideas, Q&A, Show and tell)
+- [v0.2.0 feedback discussion](https://github.com/saketvishal/bhawna-skills/discussions)
+- [GitHub Discussions](https://github.com/saketvishal/bhawna-skills/discussions) (Announcements, Ideas, Q&A, Show and tell)
 - [Bug report](https://github.com/saketvishal/bhawna-skills/issues/new?template=bug.yml)
 - [Feature request](https://github.com/saketvishal/bhawna-skills/issues/new?template=feature.yml)
 
-How reports are triaged: [`docs/feedback.md`](docs/feedback.md).
+Triage: [`docs/feedback.md`](docs/feedback.md). Loop: [`docs/feedback-loop.md`](docs/feedback-loop.md).
 
 ## Contributing
 
@@ -242,6 +236,7 @@ See [`SECURITY.md`](SECURITY.md).
 - [x] `init`, `doctor`, and `check` CLI
 - [x] OpenAI-compatible semantic evaluator
 - [x] Explicit PASS / REVIEW / BLOCKED results
+- [x] Decision catalog, relevance routing, guided/discovery onboarding
 - [ ] JSON/SARIF output for CI and code scanning
 - [ ] Multiple independent evaluator support
 - [ ] Objective-to-invariant relevance selection for smaller prompts

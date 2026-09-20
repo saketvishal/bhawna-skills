@@ -1,11 +1,13 @@
 # LinkedIn draft (not posted)
 
-AI coding agents follow today’s prompt. They often forget yesterday’s architecture decision.
+Coding agents are good at the request in front of them and bad at last quarter’s architecture decision.
 
-Bhawna Skills keeps those decisions in the repository and checks a new objective against them before implementation starts. InvariantGate returns PASS, REVIEW, or BLOCKED.
+I open-sourced Bhawna Skills: repository-owned decisions plus a preflight (InvariantGate) that checks a proposed objective before implementation — PASS, REVIEW, or BLOCKED.
 
-v0.1.0 is public (MIT). It is an alpha: you bring an OpenAI-compatible model endpoint. `--config-only` only validates config files.
+v0.2.0 can inspect a repo and surface relevant questions. It does not assume the answers, and it does not auto-enforce discoveries.
+
+Alpha. You bring an OpenAI-compatible model endpoint. PyPI is not live yet.
 
 Repo: https://github.com/saketvishal/bhawna-skills
 
-If you run coding agents on a long-lived codebase, I want the cases where you would *not* trust a preflight like this.
+If you run agents on a long-lived codebase, I want the cases where you would *not* trust a check like this.

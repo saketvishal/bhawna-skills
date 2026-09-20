@@ -1,13 +1,15 @@
 # Short posts (not posted)
 
-## X / Mastodon (~280)
+## X / Mastodon
 
-AI coding agents forget architecture. Bhawna Skills keeps repo-owned invariants and checks a new objective before implementation: PASS / REVIEW / BLOCKED.
+AI coding agents follow today’s prompt and forget yesterday’s architecture.
+
+Bhawna keeps decisions in the repo and checks new objectives first (PASS / REVIEW / BLOCKED). v0.2.0: discovery + catalog; nothing auto-confirmed.
 
 https://github.com/saketvishal/bhawna-skills
 
-v0.1.0 alpha. Needs an OpenAI-compatible endpoint for semantic checks. Feedback: https://github.com/saketvishal/bhawna-skills/discussions/1
+Alpha. BYO OpenAI-compatible endpoint. Feedback wanted: misses and false flags.
 
 ## Even shorter
 
-Repo-owned guardrails for coding agents. Check the objective against invariants first. https://github.com/saketvishal/bhawna-skills
+Repo-owned guardrails for coding agents. Check the objective against confirmed decisions before implementation. https://github.com/saketvishal/bhawna-skills

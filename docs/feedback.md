@@ -1,37 +1,21 @@
 # Feedback triage
 
-Lightweight process. Do not open an implementation issue for every comment.
+Lightweight process. Do not open an implementation issue for every comment. Do not convert feedback into an invariant automatically.
 
 Primary intake:
 
-- [Discussions](https://github.com/saketvishal/bhawna-skills/discussions) (ideas, Q&A, show-and-tell)
-- [v0.1.0 feedback thread](https://github.com/saketvishal/bhawna-skills/discussions/1)
+- [Discussions](https://github.com/saketvishal/bhawna-skills/discussions)
 - [Bug report](https://github.com/saketvishal/bhawna-skills/issues/new?template=bug.yml)
 - [Feature request](https://github.com/saketvishal/bhawna-skills/issues/new?template=feature.yml)
 
-## Categories
+Loop: [`feedback-loop.md`](feedback-loop.md).
 
-| Tag | Use when |
-| --- | --- |
-| BUG | CLI, packaging, or documented command is wrong |
-| USABILITY | Hard to install, understand, or run |
-| FALSE_PASS | Should have BLOCKED or REVIEW but passed |
-| FALSE_BLOCK | BLOCKED or REVIEW when the objective was allowed |
-| MISSING_INVARIANT_CAPABILITY | The catalog/evaluator cannot express a needed rule |
-| AGENT_INTEGRATION | Skill/hook/CI for a specific coding agent |
-| DOCUMENTATION | Docs/examples are wrong or missing |
-| ARCHITECTURE_IDEA | Change to InvariantGate design; discuss first |
+## Product-learning labels
 
-GitHub labels: `bug`, `usability`, `false-pass`, `false-block`, `agent-integration`, `documentation`, `architecture`, `enhancement`.
+**FALSE POSITIVE** (`false-positive` / `false-block`): Bhawna flags a conflict that should not be a conflict.
 
-## What a useful report answers
+**FALSE NEGATIVE** (`false-negative` / `false-pass`): Bhawna misses a meaningful conflict.
 
-1. What happened?
-2. What was expected?
-3. Which agent/workflow?
-4. Which invariant and objective (redact secrets)?
-5. Is this product behavior, model behavior, configuration, or documentation?
+Other labels: `bug`, `documentation`, `usability`, `discovery`, `decision-catalog`, `invariant-gate`, `integration`, `security`, `feature-request`.
 
 `--config-only` PASS is not evidence of semantic safety.
-
-Promote a Discussion to an issue only when the category is clear and a maintainer can act on it. Do not weaken invariants to make a report pass.

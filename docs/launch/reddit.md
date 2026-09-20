@@ -1,38 +1,27 @@
-# Reddit / community drafts (not posted)
+# Reddit drafts (not posted)
 
-Do not submit these automatically. Check each community’s self-promotion rules first.
+## Post
 
-## Candidate post (engineering-first)
-
-**Title:** Preflight for coding-agent objectives: check them against repo-owned invariants before implementation
+**Title:** Coding agents keep forgetting last month’s architecture decision — I built a repo-owned preflight for that
 
 **Body:**
 
-AI coding agents are good at the current instruction and bad at remembering last month’s architecture decision. I wanted the durable rules to live in the repo and to be checkable *before* an agent starts writing code.
+I kept seeing the same pattern: an agent follows the current prompt, then installs pip in a uv repo, or treats a vector index as canonical state.
 
-Bhawna Skills (InvariantGate) does that:
+Bhawna Skills (https://github.com/saketvishal/bhawna-skills) stores decisions in `.bhawna/` and runs InvariantGate on the *objective* before code. v0.2.0 discovers relevant decision areas from the tree; it does not auto-confirm them.
 
-- You write a constitution + invariant catalog in `.bhawna/`
-- You run `bhawna check objective.md`
-- You get PASS, REVIEW, or BLOCKED, with cited invariants
+Not claiming it stops drift or hallucinations. I want critique: false flags, misses, and workflows where you would not use this.
 
-It talks to any OpenAI-compatible endpoint. `--config-only` is a config smoke test only.
+Install today is from source (`uv sync --extra dev`). Semantic check needs your own OpenAI-compatible endpoint.
 
-Repo: https://github.com/saketvishal/bhawna-skills
+## Communities (research — not submitted)
 
-I am looking for criticism, not stars: false passes, false blocks, workflows where this would never be trusted, and agents it should plug into.
-
-Feedback thread: https://github.com/saketvishal/bhawna-skills/discussions/1
-
-## Communities (research only — status: not submitted)
-
-| Community | Why relevant | Rules / check needed | Status |
+| Subreddit | Relevance | Rules / approach | Status |
 | --- | --- | --- | --- |
-| r/LocalLLaMA | Tooling around local/self-hosted models; provider-neutral evaluator fits | Self-promotion often limited to weekends or flair; no spam | **Do not post until rules reviewed the day of posting** |
-| r/ClaudeAI | Heavy coding-agent usage | Promo threads are tightly moderated | **Not submitted** |
-| r/Python | CLI / packaging audience | “Self-promotion” ratio rules | **Not submitted** |
-| r/MachineLearning | Research-adjacent tools | Usually forbids advertising; P papers preferred | **Likely a poor fit; skip unless a technical write-up exists** |
-| r/coding / r/ExperiencedDevs | Architecture-drift problem | Self-promo rules vary | **Not submitted** |
-| Hacker News (Show HN) | See `show-hn.md` | Show HN guidelines: show the thing, no hype | **Draft only** |
+| r/LocalLLaMA | Self-hosted / BYO model fits provider-neutral evaluator | Self-promo often weekend-only or 10% rule; read sidebar the day you post | **Do not post until rules re-checked** |
+| r/ClaudeAI | Heavy coding-agent use | Promo threads moderated; lead with a technical question, not a launch | **Not submitted** |
+| r/Python | CLI / packaging | Self-promotion ratio; flair if required | **Not submitted** |
+| r/MachineLearning | Weak fit (not a paper) | Advertising usually forbidden | **Skip** |
+| r/ExperiencedDevs | Architecture-drift anecdote | No product pitches; only if framed as a workplace question without a repo dump | **Likely skip** |
 
-Never post the same copy to many communities in one day.
+Do not cross-post the same copy the same day.

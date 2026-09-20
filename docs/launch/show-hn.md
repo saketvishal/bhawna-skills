@@ -1,36 +1,23 @@
 # Show HN draft (not posted)
 
-**Title:** Show HN: Bhawna Skills – check coding-agent objectives against repo invariants before they ship
+**Title:** Show HN: Bhawna – help AI coding agents remember project decisions
 
 **URL:** https://github.com/saketvishal/bhawna-skills
 
 ## Body
 
-I kept hitting the same failure with AI coding agents: they follow the current instruction well, then contradict an architectural or tooling decision made earlier in the same project.
+I kept watching coding agents follow today’s request while contradicting an architecture or tooling decision made earlier in the same repo.
 
-Bhawna Skills is a small open-source CLI that keeps those durable decisions in the repository and checks a *proposed objective* against them before implementation starts. The first utility is InvariantGate.
+Bhawna Skills keeps those decisions with the repository and checks a *proposed objective* before implementation. InvariantGate returns PASS, REVIEW, or BLOCKED against *confirmed* invariants only.
 
-Flow:
+v0.2.0 also inspects the repo (lockfiles, manifests) and asks only relevant catalog questions. You do not have to know every architecture question up front. Discoveries stay candidates until you confirm them.
 
-```text
-objective
-  → .bhawna/constitution.md + invariants.yaml
-  → InvariantGate
-  → PASS | REVIEW | BLOCKED
 ```
-
-The rules live with the code, not in one chat session. Semantic comparison uses any OpenAI-compatible chat-completions endpoint you configure. `--config-only` only validates that the guardrail files parse; it is not a semantic safety claim.
-
-Tiny example (conceptual): if the repo says “Python deps use uv” and the objective says “install with pip”, InvariantGate should BLOCK. That example is documentation, not hard-coded matching.
-
-Try from a clone:
-
-```text
 uv sync --extra dev
-uv run bhawna --help
-uv run python examples/run_demo.py
+uv run bhawna init --discovery-only
+uv run bhawna check objective.md   # needs an OpenAI-compatible endpoint
 ```
 
-v0.1.0 is an alpha. Semantic evaluation was not live-tested in the environment that cut the GitHub Release. Feedback I want: where you would not trust this yet, which agents to integrate next, and real false-pass / false-block cases.
+Limitations: alpha; semantic check needs BHAWNA_MODEL_URL + BHAWNA_MODEL; live semantic eval was not run in the release environment; PyPI is not up until Trusted Publishing is configured.
 
-Discussion: https://github.com/saketvishal/bhawna-skills/discussions/1
+I want false-positives, false-negatives, and “I would not trust this because…”.
