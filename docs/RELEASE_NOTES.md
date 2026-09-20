@@ -2,6 +2,8 @@
 
 Maintainer-facing copy. Not posted anywhere automatically.
 
+GitHub Release notes for v0.1.0 should match `docs/launch/` and must state that live semantic evaluation was **not** run in the release environment.
+
 ## Short
 
 Bhawna Skills: repository-owned guardrails for AI coding agents. InvariantGate checks a proposed objective against your constitution and invariants before implementation starts — PASS, REVIEW, or BLOCKED.

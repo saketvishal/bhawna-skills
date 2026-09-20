@@ -31,4 +31,4 @@ Use the pull request template. Validation should match CI: `uv sync --extra dev`
 
 For significant changes, open an issue first. Describe the problem, proposed invariant or capability, alternatives considered, and how the change will be evaluated.
 
-See also [`.bhawna/constitution.md`](.bhawna/constitution.md) and [`AGENTS.md`](AGENTS.md).
+See also [`.bhawna/constitution.md`](.bhawna/constitution.md), [`AGENTS.md`](AGENTS.md), and [`docs/feedback.md`](docs/feedback.md).

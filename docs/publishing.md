@@ -1,30 +1,32 @@
 # PyPI publishing (human setup)
 
-This repository is **prepared** to publish `bhawna-skills` to PyPI. It does **not** publish automatically from ordinary pushes.
+This repository is **prepared** to publish `bhawna-skills` to PyPI. Ordinary pushes do not publish.
+
+GitHub Environment `pypi` exists. The remaining **first-time** step is on PyPI itself (Trusted Publisher). No API token belongs in GitHub secrets.
 
 ## Trusted Publishing
 
-The workflow [`.github/workflows/publish.yml`](../.github/workflows/publish.yml) uses [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (OIDC). No PyPI token belongs in GitHub secrets.
+Workflow: [`.github/workflows/publish.yml`](../.github/workflows/publish.yml) ([OIDC](https://docs.pypi.org/trusted-publishers/)).
 
-One-time maintainer steps:
+One-time maintainer steps (if not already done on PyPI):
 
-1. Create a PyPI project (or claim the `bhawna-skills` name) for the maintainer account.
-2. On PyPI: **Publishing** → **Add a new pending publisher**:
+1. Sign in at https://pypi.org (create an account if needed).
+2. **Publishing** → **Add a new pending publisher**:
+   - PyPI project name: `bhawna-skills`
    - Owner: `saketvishal`
    - Repository: `bhawna-skills`
-   - Workflow: `publish.yml`
-   - Environment: `pypi`
-3. In GitHub: create an Environment named `pypi` (optional protection rules / required reviewers).
-4. Cut a GitHub Release. The workflow builds with `uv build` and uploads via OIDC.
+   - Workflow name: `publish.yml`
+   - Environment name: `pypi`
+3. After a GitHub Release is published, the workflow should upload the sdist and wheel.
 
-Until those steps are done, the publish workflow cannot succeed. That is expected.
+Until the pending publisher is saved on PyPI, the publish job will fail. That is expected.
 
-## Local build check
+## After publication
 
 ```bash
-uv sync --extra dev
-uv build
-uvx --from dist/bhawna_skills-0.1.0-py3-none-any.whl bhawna --help
+uvx --from bhawna-skills bhawna --help
 ```
+
+`uvx bhawna` looks up a distribution named `bhawna`, which this project does not use.
 
 Do not commit `dist/` artifacts.

@@ -191,6 +191,15 @@ uv run pytest
 
 CI runs the same commands plus a package build and an installed-artifact CLI smoke test. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
+## Feedback / Ideas
+
+- [v0.1.0 feedback discussion](https://github.com/saketvishal/bhawna-skills/discussions/1)
+- [GitHub Discussions](https://github.com/saketvishal/bhawna-skills/discussions) (Ideas, Q&A, Show and tell)
+- [Bug report](https://github.com/saketvishal/bhawna-skills/issues/new?template=bug.yml)
+- [Feature request](https://github.com/saketvishal/bhawna-skills/issues/new?template=feature.yml)
+
+How reports are triaged: [`docs/feedback.md`](docs/feedback.md).
+
 ## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md). Please follow the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
