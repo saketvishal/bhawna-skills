@@ -6,7 +6,6 @@ import yaml
 
 from .models import InvariantSet
 
-
 BHAWNA_DIR = ".bhawna"
 INVARIANTS_FILE = "invariants.yaml"
 CONSTITUTION_FILE = "constitution.md"

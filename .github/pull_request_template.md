@@ -5,9 +5,10 @@
 ## Validation
 
 - [ ] Tests added or updated
-- [ ] `ruff check .`
-- [ ] `mypy src`
-- [ ] `pytest`
+- [ ] `uv sync --extra dev`
+- [ ] `uv run ruff check .`
+- [ ] `uv run mypy src`
+- [ ] `uv run pytest`
 - [ ] Documentation updated if behavior/config changed
 
 ## Guardrail impact

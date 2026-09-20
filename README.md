@@ -1,87 +1,83 @@
 # Bhawna Skills
 
-**Guardrails and reusable skills for reliable AI coding agents.**
+**Reusable guardrails that keep AI coding agents aligned with a project's durable decisions.**
 
-Bhawna Skills is an open-source collection of repo-owned skills and utilities that help AI coding agents stay aligned with a project's architecture, decisions, and engineering invariants.
+[![CI](https://github.com/saketvishal/bhawna-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/saketvishal/bhawna-skills/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-The first utility is **InvariantGate**: a preflight check that reviews an engineering objective *before* implementation starts.
+## 30-second understanding
 
-> The goal is simple: catch architectural drift before an agent turns it into code.
+**Problem.** AI coding agents can forget or contradict architectural decisions, project rules, tooling choices, and other established invariants.
 
-## Why
+**Bhawna Skills.** Reusable, repository-owned guardrails and skills that make those decisions durable and checkable.
 
-AI coding agents are powerful, but long-running projects accumulate durable decisions that are easy to lose across sessions, agents, and tools. Repeating those decisions in every prompt is expensive and unreliable.
+**InvariantGate.** Checks a proposed objective or plan against those invariants *before* implementation begins.
 
-Bhawna Skills keeps the durable rules in the repository and checks proposed work against them before execution.
-
-```text
-Objective
-   ↓
-Repository constitution + invariants
-   ↓
-InvariantGate semantic preflight
-   ↓
-PASS / REVIEW / BLOCKED
-   ↓
-Coding agent
-```
-
-## InvariantGate
-
-InvariantGate separates two concerns:
-
-- **Semantic review**: does the proposed objective contradict an architectural decision?
-- **Deterministic validation**: is the guardrail configuration itself valid and reproducible?
-
-The first release supports any **OpenAI-compatible chat-completions endpoint**, so teams can choose their own model provider.
-
-### Example
-
-A project invariant:
-
-```yaml
-- id: UNDERSTANDING-001
-  title: Semantic understanding first
-  statement: >
-    Free-form user language is interpreted semantically by an LLM.
-    Deterministic code validates facts that can be objectively verified.
-  severity: block
-```
-
-An objective proposes:
+Conceptual example (not production matching logic):
 
 ```text
-Parse known phrases with regexes and map each phrase to an intent.
+Project invariant:   Python dependency management uses uv.
+Proposed objective:  Install dependencies using pip.
+
+Result: BLOCKED
+Conflicts with the project's dependency-management invariant.
 ```
 
-InvariantGate can return:
-
 ```text
-BLOCKED
+objective / plan
+        ↓
+.bhawna constitution + invariants
+        ↓
+InvariantGate (semantic preflight)
+        ↓
+PASS  |  REVIEW  |  BLOCKED
+        ↓
+coding agent proceeds only when allowed
+```
 
-UNDERSTANDING-001
-The objective proposes phrase-driven intent parsing, which conflicts with the
-project's semantic-understanding architecture.
+## How it works
+
+1. You write durable rules in the repository (`.bhawna/constitution.md` and `.bhawna/invariants.yaml`).
+2. Before an agent implements work, you run `bhawna check` on the objective.
+3. A **semantic** evaluator (any OpenAI-compatible chat-completions endpoint) compares the *proposed approach* to those rules.
+4. The CLI prints a verdict and exits with a status code you can use in scripts or CI.
+
+`--config-only` validates that the guardrail files parse. It does **not** claim the objective is architecturally safe.
+
+## Installation
+
+Requires [uv](https://docs.astral.sh/uv/).
+
+Once the package is on PyPI:
+
+```bash
+uvx --from bhawna-skills bhawna --help
+uvx --from bhawna-skills bhawna check objective.md
+```
+
+Or install the CLI as a user tool:
+
+```bash
+uv tool install bhawna-skills
+bhawna --help
+```
+
+From a clone (development):
+
+```bash
+git clone https://github.com/saketvishal/bhawna-skills.git
+cd bhawna-skills
+uv sync --extra dev
+uv run bhawna --help
 ```
 
 ## Quick start
 
-### 1. Install for development
+### 1. Initialize guardrails in a repository
 
 ```bash
-git clone https://github.com/<you>/bhawna-skills.git
-cd bhawna-skills
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -e ".[dev]"
-```
-
-### 2. Initialize guardrails in a repository
-
-From the repository you want to protect:
-
-```bash
-bhawna init
+uv run bhawna init
 ```
 
 This creates:
@@ -92,14 +88,16 @@ This creates:
 └── invariants.yaml
 ```
 
-Edit those files to describe your project's durable rules.
+### 2. Creating project invariants
+
+Edit those files so they describe *your* project's durable rules: architecture, tooling, security, and completion gates. Keep statements specific enough to judge an objective, and treat examples as evaluation fixtures—not production matchers.
 
 ### 3. Configure a semantic evaluator
 
 ```bash
 export BHAWNA_MODEL_URL="https://your-provider.example/v1"
 export BHAWNA_MODEL="your-model"
-export BHAWNA_API_KEY="..."   # if required by the provider
+export BHAWNA_API_KEY="..."   # if the provider requires it
 ```
 
 PowerShell:
@@ -113,24 +111,24 @@ $env:BHAWNA_API_KEY="..."
 ### 4. Check an objective
 
 ```bash
-bhawna check objective.md
+uv run bhawna check objective.md
 ```
 
-Exit codes:
-
-| Code | Meaning |
-| ---: | --- |
-| `0` | PASS |
-| `2` | BLOCKED |
-| `3` | REVIEW required |
-
-For CI/configuration smoke checks without an LLM:
+Configuration smoke check (no LLM):
 
 ```bash
-bhawna check objective.md --config-only
+uv run bhawna check objective.md --config-only
 ```
 
-`--config-only` intentionally does **not** claim semantic safety.
+## PASS / REVIEW / BLOCKED
+
+| Verdict | Exit code | Meaning |
+| --- | ---: | --- |
+| `PASS` | `0` | No material conflict found. |
+| `REVIEW` | `3` | Ambiguity or a new decision is required before proceeding. |
+| `BLOCKED` | `2` | The objective contradicts an explicit invariant. |
+
+`--config-only` always reports configuration validity, not semantic safety.
 
 ## Commands
 
@@ -140,14 +138,68 @@ bhawna doctor [PATH]        Validate configuration and prerequisites
 bhawna check OBJECTIVE      Run preflight against the repository rules
 ```
 
-## Design principles
+## Agent / tool integration
 
-1. **Repository-owned truth** — architecture decisions live with the code, not inside one chat session.
-2. **Model-neutral** — Bhawna Skills does not require one coding agent or one LLM provider.
-3. **Evidence over guessing** — findings must identify the invariant and the objective text that conflicts with it.
-4. **Examples are tests, not architecture** — known failures should not become hard-coded production behavior.
-5. **Preflight, not replacement** — this project complements SDD, ADRs, tests, code review, and CI; it does not replace them.
-6. **Deterministic where possible, semantic where necessary** — machine-checkable constraints should be enforced mechanically; architectural intent often needs semantic review.
+- **CLI:** any agent or human can run `bhawna check` before implementation.
+- **Skill:** [`skills/invariant-gate/SKILL.md`](skills/invariant-gate/SKILL.md) describes the same procedure for coding agents that load skills.
+- **This repository:** Bhawna dogfoods its own `.bhawna/` constitution and invariants.
+
+Bhawna does not require a particular coding agent or model vendor. Point `BHAWNA_MODEL_URL` at any OpenAI-compatible endpoint.
+
+## Example project
+
+A tiny adoption example lives in [`examples/sample-project/`](examples/sample-project/). It includes a constitution, invariants, two objectives, and commands you can run today.
+
+Deterministic demo (configuration path, no LLM):
+
+```bash
+uv run python examples/run_demo.py
+```
+
+Semantic demo (requires `BHAWNA_MODEL_URL` and `BHAWNA_MODEL`):
+
+```bash
+uv run bhawna check examples/sample-project/objectives/use-pip.md --project examples/sample-project
+```
+
+## Project structure
+
+```text
+.bhawna/                 This repo's own constitution and invariants
+src/bhawna_skills/       CLI, config loader, evaluators
+skills/invariant-gate/   Agent-facing skill description
+examples/                Sample project and demo runner
+tests/                   Unit tests
+.github/workflows/       CI and (optional) PyPI publish
+```
+
+## Development
+
+```bash
+uv sync --extra dev
+uv run ruff check .
+uv run mypy src
+uv run pytest
+uv run bhawna --help
+```
+
+## Testing
+
+```bash
+uv run pytest
+```
+
+CI runs the same commands plus a package build and an installed-artifact CLI smoke test. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Please follow the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+
+## Security
+
+Objectives, constitutions, and invariants may contain proprietary information. Semantic evaluation sends that content to the model endpoint you configure. Review the provider's data-handling terms first.
+
+See [`SECURITY.md`](SECURITY.md).
 
 ## Roadmap
 
@@ -163,22 +215,6 @@ bhawna check OBJECTIVE      Run preflight against the repository rules
 - [ ] GitHub Action
 - [ ] Drift regression suites
 - [ ] Project-specific policy plugins
-
-## Prior art
-
-Bhawna Skills is informed by ideas from projects working on adjacent problems, including GitHub Spec Kit, ASDD, architecture-guardrail projects, agent skills, and drift testing. It focuses specifically on **pre-execution consistency between a proposed objective and a repository's durable decisions**.
-
-See [`docs/prior-art.md`](docs/prior-art.md).
-
-## Security
-
-Objectives, constitutions, and invariants may contain proprietary project information. When semantic evaluation is enabled, that content is sent to the model endpoint you configure. Review your provider's data-handling terms before using it with sensitive repositories.
-
-See [`SECURITY.md`](SECURITY.md).
-
-## Contributing
-
-Contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 

@@ -1,0 +1,24 @@
+project: sample-app
+version: 1
+invariants:
+  - id: TOOL-001
+    title: uv is the Python workflow
+    statement: >
+      Python dependency installation and development commands use uv
+      (for example uv sync and uv run). pip, python -m venv, and
+      manual virtualenv activation are not the project workflow.
+    rationale: >
+      A single toolchain keeps contributor and CI instructions consistent.
+    severity: block
+    applies_to: ["*"]
+  - id: ARCH-001
+    title: Examples are not production rules
+    statement: >
+      Observed examples must not become phrase-specific production matching logic.
+    severity: block
+    applies_to: ["*"]
+  - id: SEC-001
+    title: No committed secrets
+    statement: API keys and credentials must not be written into repository files.
+    severity: block
+    applies_to: ["*"]

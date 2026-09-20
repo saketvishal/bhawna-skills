@@ -1,5 +1,5 @@
 name: Bug report
-description: Report incorrect or unexpected behavior.
+description: Report incorrect or unexpected InvariantGate or CLI behavior.
 title: "[bug] "
 labels: [bug]
 body:
@@ -19,6 +19,19 @@ body:
     id: reproduction
     attributes:
       label: Reproduction
-      description: Include commands, configuration with secrets removed, and relevant output.
+      description: Include uv commands, configuration with secrets removed, and relevant output.
     validations:
       required: true
+  - type: input
+    id: version
+    attributes:
+      label: Bhawna version or git SHA
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Evaluation mode
+      options:
+        - semantic (BHAWNA_MODEL_URL set)
+        - config-only
+        - doctor / init
+        - packaging / install

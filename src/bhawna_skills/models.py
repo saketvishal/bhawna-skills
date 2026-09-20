@@ -1,17 +1,17 @@
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     block = "block"
     review = "review"
     warn = "warn"
 
 
-class Verdict(str, Enum):
+class Verdict(StrEnum):
     pass_ = "PASS"
     review = "REVIEW"
     blocked = "BLOCKED"
