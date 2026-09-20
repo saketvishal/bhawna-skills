@@ -1,0 +1,58 @@
+id: source_control
+title: Source control and integration
+version: 1
+items:
+  - id: SCM-DEFAULT
+    title: Default branch
+    type: DECISION
+    category: source_control
+    importance: HIGH
+    question: What is the canonical default branch for accepted work?
+    applies_when: { sparse_starter: true, any_dimensions: [code, cicd, github-actions] }
+    answer_type: choice
+    options: [main, master, other, undecided]
+    sources: [github-security]
+  - id: SCM-PR
+    title: Pull request requirement
+    type: INVARIANT
+    category: source_control
+    importance: HIGH
+    question: Must production changes land via pull request?
+    applies_when: { any_dimensions: [cicd, github-actions, code] }
+    answer_type: choice
+    options: [required, not-required, undecided]
+    sources: [github-security, openssf]
+  - id: SCM-REVIEW
+    title: Independent review
+    type: INVARIANT
+    category: source_control
+    importance: HIGH
+    question: Is independent review required before merge?
+    applies_when: { any_dimensions: [cicd, github-actions, agents] }
+    answer_type: choice
+    options: [required, optional, undecided]
+    sources: [github-security, nist-ssdf]
+  - id: SCM-DONE
+    title: DONE requires origin default branch
+    type: INVARIANT
+    category: source_control
+    importance: HIGH
+    question: Must accepted production work reach origin/<default-branch> before it is DONE?
+    applies_when: { any_dimensions: [agents, cicd, code, sparse] }
+    answer_type: choice
+    options: ["yes", "no", undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Integration gate
+        statement: "DONE/integration policy: {answer}."
+        severity: block
+  - id: SCM-FORCE
+    title: Force-push policy
+    type: INVARIANT
+    category: source_control
+    importance: MEDIUM
+    question: Are force-pushes allowed on the default branch?
+    applies_when: { any_dimensions: [cicd, github-actions] }
+    answer_type: choice
+    options: [forbidden, allowed, undecided]
+    sources: [github-security]

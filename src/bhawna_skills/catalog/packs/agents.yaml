@@ -1,0 +1,62 @@
+id: agents
+title: Agentic development
+version: 1
+items:
+  - id: AG-ALLOWED
+    title: Allowed coding agents
+    type: DECISION
+    category: agents
+    importance: MEDIUM
+    question: Which coding agents are allowed to change this repository?
+    applies_when: { any_dimensions: [agents, python, javascript, sparse] }
+    answer_type: multi
+    options: [any, claude-code, codex, cursor, grok, other, undecided]
+    sources: [agents-md, bhawna]
+  - id: AG-SUCCESS
+    title: Agent is not sole success authority
+    type: INVARIANT
+    category: agents
+    importance: HIGH
+    question: May an implementation agent be the sole authority declaring work complete?
+    applies_when: { any_dimensions: [agents, testing, cicd, sparse] }
+    answer_type: choice
+    options: [no-independent-gates-required, yes-agent-may-declare, undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Independent completion
+        statement: "Implementation-agent completion authority: {answer}."
+        severity: block
+  - id: AG-SUPERSEDE
+    title: Agents may not silently supersede architecture
+    type: INVARIANT
+    category: agents
+    importance: CRITICAL
+    question: May agents silently replace confirmed architecture decisions?
+    applies_when: { sparse_starter: true, any_dimensions: [agents, architecture, code] }
+    answer_type: choice
+    options: [forbidden, allowed-with-explicit-decision, undecided]
+    sources: [adr, bhawna]
+    invariant_templates:
+      - title: No silent supersede
+        statement: "Silent supersession of confirmed architecture by agents is {answer}."
+        severity: block
+  - id: AG-NET
+    title: Agent network and secret access
+    type: INVARIANT
+    category: agents
+    importance: HIGH
+    question: What network/secret access do coding agents have by default?
+    applies_when: { any_dimensions: [agents, security] }
+    answer_type: choice
+    options: [restricted, unrestricted, undecided]
+    sources: [google-saif, owasp-asvs]
+  - id: AG-WORKTREE
+    title: Agent branch strategy
+    type: PROCEDURE
+    category: agents
+    importance: MEDIUM
+    question: Must agents work on a feature branch or worktree rather than directly on main?
+    applies_when: { any_dimensions: [agents, cicd] }
+    answer_type: choice
+    options: [feature-branch-required, main-ok, undecided]
+    sources: [bhawna]

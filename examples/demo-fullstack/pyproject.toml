@@ -1,0 +1,4 @@
+[project]
+name = "demo-fullstack"
+version = "0.0.0"
+dependencies = ["fastapi", "psycopg"]

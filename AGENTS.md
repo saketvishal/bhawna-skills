@@ -4,7 +4,8 @@ Bhawna Skills is an agent-neutral guardrail project.
 
 Before changing behavior:
 
-1. Read `.bhawna/constitution.md` and `.bhawna/invariants.yaml`.
+1. Read `.bhawna/constitution.md`, `.bhawna/invariants.yaml`, and `.bhawna/decisions.yaml` if present.
+   Unconfirmed (PROPOSED/UNRESOLVED) records are not enforcement.
 2. Keep the core independent of any single coding agent or LLM provider.
 3. Treat examples as tests, not production rules.
 4. Add tests for behavior changes.

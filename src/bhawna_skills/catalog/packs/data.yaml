@@ -1,0 +1,102 @@
+id: data
+title: Data and persistence
+version: 1
+description: Canonical vs derived stores, migrations, and recovery.
+items:
+  - id: DATA-PERSIST
+    title: Does the project persist application state?
+    type: DECISION
+    category: data
+    importance: CRITICAL
+    question: Does this project persist application state?
+    applies_when: { any_dimensions: [data, persistence, backend, api, ai, sparse] }
+    answer_type: choice
+    options: ["yes", "no", undecided]
+    sources: [twelve-factor, bhawna]
+    follow_ups:
+      - { id: DATA-CANONICAL, when_answer_in: ["yes"] }
+      - { id: DATA-DERIVED, when_answer_in: ["yes"] }
+  - id: DATA-CANONICAL
+    title: Authoritative datastore
+    type: INVARIANT
+    category: data
+    importance: CRITICAL
+    question: Which datastore owns canonical application state?
+    applies_when: { any_dimensions: [data, persistence, sql, document-store] }
+    discovery_hints: { dimensions: [data, persistence] }
+    answer_type: choice
+    options: [postgresql, mysql, sqlserver, sqlite, mongodb, dynamodb, cassandra, other, undecided]
+    sources: [repo-evidence, twelve-factor]
+    follow_ups:
+      - { id: DATA-SYNC, when_answer_in: ["*"] }
+      - { id: DATA-MIGRATE, when_answer_in: ["*"] }
+    invariant_templates:
+      - title: Canonical datastore
+        statement: "{answer} owns authoritative application state. Other stores must not independently become canonical."
+        severity: block
+  - id: DATA-DERIVED
+    title: Specialized / derived stores
+    type: DECISION
+    category: data
+    importance: HIGH
+    question: Which additional specialized stores exist, and are they derived or canonical?
+    applies_when: { any_dimensions: [vector-store, graph, search, cache, object-storage] }
+    answer_type: free_text
+    options: [vector-derived, graph-derived, search-derived, cache, object-storage, none, undecided]
+    sources: [repo-evidence, bhawna]
+    follow_ups:
+      - { id: DATA-VECTOR-ROLE, when_answer_in: ["*"] }
+  - id: DATA-VECTOR-ROLE
+    title: Vector store role
+    type: INVARIANT
+    category: data
+    importance: HIGH
+    question: If a vector store is present, what is its role relative to canonical state?
+    applies_when: { any_dimensions: [vector-store, ai] }
+    answer_type: choice
+    options: [derived-retrieval-index, canonical, unused, other, undecided]
+    sources: [google-saif, bhawna]
+    invariant_templates:
+      - title: Vector store role
+        statement: "Vector store role is {answer}; it must not silently replace the canonical datastore."
+        severity: block
+  - id: DATA-SYNC
+    title: Derived-store synchronization
+    type: DECISION
+    category: data
+    importance: HIGH
+    question: How must derived stores stay consistent with canonical state?
+    applies_when: { any_dimensions: [vector-store, search, graph, cache] }
+    answer_type: choice
+    options: [rebuild-from-canonical, async-projection, dual-write-forbidden, dual-write-allowed, undecided]
+    sources: [bhawna]
+  - id: DATA-MIGRATE
+    title: Schema migration approach
+    type: PROCEDURE
+    category: data
+    importance: HIGH
+    question: How are schema changes applied?
+    applies_when: { any_dimensions: [data, persistence, sql] }
+    answer_type: choice
+    options: [expand-contract, migration-tool, manual, not_applicable, undecided]
+    sources: [bhawna]
+  - id: DATA-ACCESS
+    title: Data access path
+    type: INVARIANT
+    category: data
+    importance: MEDIUM
+    question: Must application code use the designated data-access layer rather than ad-hoc connections?
+    applies_when: { any_dimensions: [data, persistence] }
+    answer_type: choice
+    options: [required-dal, ad-hoc-allowed, undecided]
+    sources: [bhawna]
+  - id: DATA-BACKUP
+    title: Backup and recovery
+    type: DECISION
+    category: data
+    importance: HIGH
+    question: Are backup/restore requirements defined (including RPO/RTO if applicable)?
+    applies_when: { any_dimensions: [data, persistence, reliability] }
+    answer_type: choice
+    options: [defined, deferred, not_applicable, undecided]
+    sources: [google-sre, aws-wa]

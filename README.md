@@ -10,9 +10,9 @@
 
 **Problem.** AI coding agents can forget or contradict architectural decisions, project rules, tooling choices, and other established invariants.
 
-**Bhawna Skills.** Reusable, repository-owned guardrails and skills that make those decisions durable and checkable.
+**Bhawna Skills.** A project decision system: it inspects the repo, identifies relevant decision areas, records confirmed choices, and keeps them available to future coding agents.
 
-**InvariantGate.** Checks a proposed objective or plan against those invariants *before* implementation begins.
+**InvariantGate.** Checks a proposed objective against *confirmed* invariants before implementation begins. Unconfirmed catalog suggestions are not enforced.
 
 Conceptual example (not production matching logic):
 
@@ -24,24 +24,36 @@ Result: BLOCKED
 Conflicts with the project's dependency-management invariant.
 ```
 
+You do not need to know every architectural question up front. Bhawna knows *areas worth asking about*; it does not assume the answers.
+
 ```text
-objective / plan
+inspect repository (files, lockfiles, manifests)
         ↓
-.bhawna constitution + invariants
+relevant decision areas only
         ↓
-InvariantGate (semantic preflight)
+confirm / edit / defer / not applicable / undecided
         ↓
-PASS  |  REVIEW  |  BLOCKED
+.bhawna decisions + confirmed invariants
         ↓
-coding agent proceeds only when allowed
+future objective → InvariantGate → PASS | REVIEW | BLOCKED
+```
+
+Realistic (not hard-coded) chain:
+
+```text
+PostgreSQL + Qdrant dependencies detected
+    → Bhawna asks which store is canonical
+    → you confirm PostgreSQL; Qdrant is a derived index
+    → an objective that writes canonical state to Qdrant
+      is checked against that confirmed invariant
 ```
 
 ## How it works
 
-1. You write durable rules in the repository (`.bhawna/constitution.md` and `.bhawna/invariants.yaml`).
-2. Before an agent implements work, you run `bhawna check` on the objective.
-3. A **semantic** evaluator (any OpenAI-compatible chat-completions endpoint) compares the *proposed approach* to those rules.
-4. The CLI prints a verdict and exits with a status code you can use in scripts or CI.
+1. `bhawna init` (or `--guided` / `--quick`) discovers objective facts and lists **relevant** catalog questions. Discoveries stay **PROPOSED** until you confirm them.
+2. Confirmed decisions live in `.bhawna/decisions.yaml`. Only accepted invariants are copied into `.bhawna/invariants.yaml` for enforcement.
+3. `bhawna check` runs InvariantGate against confirmed invariants, scoped rules, built-in safety policy, and recorded exceptions — not unresolved items.
+4. Semantic comparison uses any OpenAI-compatible chat-completions endpoint you configure.
 
 `--config-only` validates that the guardrail files parse. It does **not** claim the objective is architecturally safe.
 
@@ -78,14 +90,22 @@ uv run bhawna --help
 
 ```bash
 uv run bhawna init
+uv run bhawna init --guided --answers answers.yaml
+uv run bhawna init --quick
+uv run bhawna init --discovery-only --json
+uv run bhawna review
+uv run bhawna decisions
+uv run bhawna unresolved
 ```
 
-This creates:
+`bhawna init` creates `.bhawna/` if needed and records **candidates**. It will not silently overwrite accepted configuration. Use `--answers` to confirm, defer, reject, or mark not applicable.
 
 ```text
 .bhawna/
 ├── constitution.md
-└── invariants.yaml
+├── invariants.yaml    # confirmed enforcement surface (v0.1 compatible)
+├── decisions.yaml     # all knowledge records + provenance
+└── exceptions.yaml    # optional explicit exceptions
 ```
 
 ### 2. Creating project invariants
@@ -150,7 +170,13 @@ Bhawna does not require a particular coding agent or model vendor. Point `BHAWNA
 
 A tiny adoption example lives in [`examples/sample-project/`](examples/sample-project/). It includes a constitution, invariants, two objectives, and commands you can run today.
 
-Deterministic demo (configuration path, no LLM):
+Decision-catalog demos (no LLM):
+
+```bash
+uv run python examples/run_decision_demos.py
+```
+
+Legacy config-only demo:
 
 ```bash
 uv run python examples/run_demo.py

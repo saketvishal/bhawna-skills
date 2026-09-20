@@ -1,0 +1,44 @@
+id: frontend
+title: Frontend
+version: 1
+description: UI stack questions. Routed only when frontend evidence exists.
+items:
+  - id: FE-FRAMEWORK
+    title: UI framework
+    type: DECISION
+    category: frontend
+    importance: HIGH
+    question: Which UI framework is canonical?
+    applies_when: { any_dimensions: [frontend] }
+    answer_type: choice
+    options: [react, vue, svelte, angular, other, undecided]
+    sources: [repo-evidence]
+  - id: FE-STATE
+    title: Client state management
+    type: DECISION
+    category: frontend
+    importance: MEDIUM
+    question: How is client application state managed?
+    applies_when: { any_dimensions: [frontend] }
+    answer_type: free_text
+    sources: [bhawna]
+  - id: FE-A11Y
+    title: Accessibility bar
+    type: INVARIANT
+    category: frontend
+    importance: HIGH
+    question: What accessibility bar must UI changes meet?
+    applies_when: { any_dimensions: [frontend] }
+    answer_type: choice
+    options: [wcag-aa, wcag-a, unspecified, not_applicable, undecided]
+    sources: [bhawna]
+  - id: FE-API
+    title: Frontend data access
+    type: DECISION
+    category: frontend
+    importance: MEDIUM
+    question: How does the UI call backend APIs?
+    applies_when: { any_dimensions: [frontend, api] }
+    answer_type: choice
+    options: [bff, direct-rest, graphql, mixed, undecided]
+    sources: [bhawna]

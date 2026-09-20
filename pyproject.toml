@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bhawna-skills"
-version = "0.1.0"
+version = "0.2.0"
 description = "Reusable guardrails and skills that check AI coding-agent objectives against repository-owned invariants."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -66,14 +66,14 @@ bhawna = "bhawna_skills.cli:app"
 where = ["src"]
 
 [tool.setuptools.package-data]
-bhawna_skills = ["py.typed"]
+bhawna_skills = ["py.typed", "catalog/*.yaml", "catalog/packs/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 target-version = "py311"
 
 [tool.ruff.lint]

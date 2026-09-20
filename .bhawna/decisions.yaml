@@ -1,0 +1,1573 @@
+project: bhawna-skills
+version: 1
+records:
+- id: AG-SUPERSEDE
+  catalog_id: AG-SUPERSEDE
+  type: INVARIANT
+  status: PROPOSED
+  title: Agents may not silently supersede architecture
+  statement: May agents silently replace confirmed architecture decisions?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  - bhawna
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: agents
+- id: AI-CANONICAL-WRITE
+  catalog_id: AI-CANONICAL-WRITE
+  type: INVARIANT
+  status: PROPOSED
+  title: LLM output vs canonical state
+  statement: May raw LLM output become canonical persisted state?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-saif
+  - bhawna
+  evidence:
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: ai
+- id: API-AUTHN
+  catalog_id: API-AUTHN
+  type: DECISION
+  status: PROPOSED
+  title: API authentication
+  statement: How are external and internal API callers authenticated?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  - ms-security
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: api
+- id: CI-DEPLOY
+  catalog_id: CI-DEPLOY
+  type: INVARIANT
+  status: PROPOSED
+  title: Who may deploy to production?
+  statement: Who is allowed to deploy to production?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - nist-ssdf
+  - slsa
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cicd
+- id: CORE-LANG
+  catalog_id: CORE-LANG
+  type: DECISION
+  status: PROPOSED
+  title: Primary languages
+  statement: Which languages are first-class in this repository?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: Tooling, CI, and agent instructions follow the language set.
+  sources:
+  - repo-evidence
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: DATA-PERSIST
+  catalog_id: DATA-PERSIST
+  type: DECISION
+  status: PROPOSED
+  title: Does the project persist application state?
+  statement: Does this project persist application state?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - twelve-factor
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: data
+- id: SEC-AUTHZ
+  catalog_id: SEC-AUTHZ
+  type: DECISION
+  status: PROPOSED
+  title: Authorization model
+  statement: What authorization model does the product use?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: security
+- id: SEC-SECRETS
+  catalog_id: SEC-SECRETS
+  type: INVARIANT
+  status: PROPOSED
+  title: Secrets storage
+  statement: Where may secrets live, and are committed secrets forbidden?
+  importance: CRITICAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  - github-security
+  - twelve-factor
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_github_actions: .github/workflows'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: security
+- id: AG-NET
+  catalog_id: AG-NET
+  type: INVARIANT
+  status: PROPOSED
+  title: Agent network and secret access
+  statement: What network/secret access do coding agents have by default?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-saif
+  - owasp-asvs
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: agents
+- id: AG-SUCCESS
+  catalog_id: AG-SUCCESS
+  type: INVARIANT
+  status: PROPOSED
+  title: Agent is not sole success authority
+  statement: May an implementation agent be the sole authority declaring work complete?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'has_agents_md: AGENTS.md'
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: agents
+- id: AI-EXAMPLES
+  catalog_id: AI-EXAMPLES
+  type: INVARIANT
+  status: PROPOSED
+  title: Evals are not parsers
+  statement: May examples or eval fixtures become production parsing rules?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_agents_md: AGENTS.md'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: ai
+- id: AI-PROVIDER
+  catalog_id: AI-PROVIDER
+  type: INVARIANT
+  status: PROPOSED
+  title: Model provider abstraction
+  statement: Must provider-specific client code stay behind an established abstraction?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-saif
+  - bhawna
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: ai
+- id: API-BREAK
+  catalog_id: API-BREAK
+  type: INVARIANT
+  status: PROPOSED
+  title: Breaking change policy
+  statement: Do breaking API changes require explicit approval and versioning?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: api
+- id: API-STYLE
+  catalog_id: API-STYLE
+  type: DECISION
+  status: PROPOSED
+  title: API style
+  statement: What API styles does this project expose?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: api
+- id: ARCH-ADR
+  catalog_id: ARCH-ADR
+  type: PROCEDURE
+  status: PROPOSED
+  title: Architectural decision records
+  statement: Where are architectural decisions recorded, and must new architecture
+    changes add/update an ADR?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  evidence: []
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: architecture
+- id: ARCH-SHAPE
+  catalog_id: ARCH-SHAPE
+  type: DECISION
+  status: PROPOSED
+  title: System shape
+  statement: What is the primary structural shape?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  - bhawna
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: architecture
+- id: CI-AGENTS-EDIT
+  catalog_id: CI-AGENTS-EDIT
+  type: INVARIANT
+  status: PROPOSED
+  title: May agents edit CI workflows?
+  statement: May coding agents modify CI workflow files without extra review?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  - slsa
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cicd
+- id: CI-PROVIDER
+  catalog_id: CI-PROVIDER
+  type: DECISION
+  status: PROPOSED
+  title: CI provider
+  statement: Which CI system is canonical?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - repo-evidence
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cicd
+- id: CI-REQUIRED
+  catalog_id: CI-REQUIRED
+  type: DETERMINISTIC_GATE
+  status: PROPOSED
+  title: Required checks
+  statement: Which checks must pass before merge?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cicd
+- id: CLOUD-ENV
+  catalog_id: CLOUD-ENV
+  type: INVARIANT
+  status: PROPOSED
+  title: Environment isolation
+  statement: Must staging and production be isolated (accounts, projects, or equivalent)?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - aws-wa
+  - twelve-factor
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cloud
+- id: CLOUD-IAC
+  catalog_id: CLOUD-IAC
+  type: DECISION
+  status: PROPOSED
+  title: Infrastructure as code
+  statement: Which IaC toolchain is canonical?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - repo-evidence
+  evidence:
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cloud
+- id: CLOUD-PROVIDER
+  catalog_id: CLOUD-PROVIDER
+  type: DECISION
+  status: PROPOSED
+  title: Cloud provider
+  statement: Where does this system primarily run?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - aws-wa
+  - repo-evidence
+  evidence:
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cloud
+- id: CLOUD-SECRETS
+  catalog_id: CLOUD-SECRETS
+  type: DECISION
+  status: PROPOSED
+  title: Runtime secret store
+  statement: Where do runtime secrets come from?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - twelve-factor
+  - owasp-asvs
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cloud
+- id: CORE-PKG
+  catalog_id: CORE-PKG
+  type: INVARIANT
+  status: PROPOSED
+  title: Dependency workflow
+  statement: Which dependency/package workflow is canonical?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - repo-evidence
+  - twelve-factor
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: CORE-TESTCMD
+  catalog_id: CORE-TESTCMD
+  type: PROCEDURE
+  status: PROPOSED
+  title: Canonical test command
+  statement: What command is the canonical way to run tests?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - repo-evidence
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: DATA-BACKUP
+  catalog_id: DATA-BACKUP
+  type: DECISION
+  status: PROPOSED
+  title: Backup and recovery
+  statement: Are backup/restore requirements defined (including RPO/RTO if applicable)?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-sre
+  - aws-wa
+  evidence:
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: data
+- id: DOC-SUPERSEDE
+  catalog_id: DOC-SUPERSEDE
+  type: PROCEDURE
+  status: PROPOSED
+  title: Superseding decisions
+  statement: When a decision is replaced, is the old record kept with SUPERSEDED status?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  - bhawna
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: documentation
+- id: OSS-LICENSE
+  catalog_id: OSS-LICENSE
+  type: DECISION
+  status: PROPOSED
+  title: License
+  statement: What license applies to this repository?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - openssf
+  evidence:
+  - 'has_uv_lock: uv.lock'
+  - 'has_license: LICENSE'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: open_source
+- id: OSS-RELEASE
+  catalog_id: OSS-RELEASE
+  type: PROCEDURE
+  status: PROPOSED
+  title: Release process
+  statement: How are versions tagged and published?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - slsa
+  evidence:
+  - 'has_uv_lock: uv.lock'
+  - 'has_github_actions: .github/workflows'
+  - 'has_license: LICENSE'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: open_source
+- id: PRIV-CLASSES
+  catalog_id: PRIV-CLASSES
+  type: DECISION
+  status: PROPOSED
+  title: Sensitive data classes
+  statement: Which sensitive data classes does the project handle?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  - google-saif
+  evidence:
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: privacy
+- id: PRIV-MODEL
+  catalog_id: PRIV-MODEL
+  type: INVARIANT
+  status: PROPOSED
+  title: Sharing with model providers
+  statement: What project content may be sent to model providers?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-saif
+  - bhawna
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: privacy
+- id: PRIV-PROD-IN-TEST
+  catalog_id: PRIV-PROD-IN-TEST
+  type: INVARIANT
+  status: PROPOSED
+  title: Production data in non-production
+  statement: May production user content be copied into test or development environments?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  evidence:
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: privacy
+- id: SEC-CI-PERMS
+  catalog_id: SEC-CI-PERMS
+  type: INVARIANT
+  status: PROPOSED
+  title: CI token permissions
+  statement: Must CI workflows use least-privilege permissions?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  - slsa
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: security
+- id: SEC-DEPS
+  catalog_id: SEC-DEPS
+  type: DETERMINISTIC_GATE
+  status: PROPOSED
+  title: Dependency vulnerability scanning
+  statement: Is dependency vulnerability scanning required?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - openssf
+  - nist-ssdf
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_github_actions: .github/workflows'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: security
+- id: SCM-DEFAULT
+  catalog_id: SCM-DEFAULT
+  type: DECISION
+  status: PROPOSED
+  title: Default branch
+  statement: What is the canonical default branch for accepted work?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: source_control
+- id: SCM-DONE
+  catalog_id: SCM-DONE
+  type: INVARIANT
+  status: PROPOSED
+  title: DONE requires origin default branch
+  statement: Must accepted production work reach origin/<default-branch> before it
+    is DONE?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: source_control
+- id: SCM-PR
+  catalog_id: SCM-PR
+  type: INVARIANT
+  status: PROPOSED
+  title: Pull request requirement
+  statement: Must production changes land via pull request?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  - openssf
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: source_control
+- id: SCM-REVIEW
+  catalog_id: SCM-REVIEW
+  type: INVARIANT
+  status: PROPOSED
+  title: Independent review
+  statement: Is independent review required before merge?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  - nist-ssdf
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: source_control
+- id: TEST-REGRESSION
+  catalog_id: TEST-REGRESSION
+  type: INVARIANT
+  status: PROPOSED
+  title: Bug-fix regression tests
+  statement: Must bug fixes add a regression test?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: testing
+- id: TEST-UNIT
+  catalog_id: TEST-UNIT
+  type: DETERMINISTIC_GATE
+  status: PROPOSED
+  title: Unit tests required
+  statement: Must changes include or update unit tests when behavior changes?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: testing
+- id: TEST-WEAKEN
+  catalog_id: TEST-WEAKEN
+  type: INVARIANT
+  status: PROPOSED
+  title: Do not weaken tests to pass CI
+  statement: Is weakening tests solely to make CI pass forbidden?
+  importance: HIGH
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_github_actions: .github/workflows'
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: testing
+- id: AG-ALLOWED
+  catalog_id: AG-ALLOWED
+  type: DECISION
+  status: PROPOSED
+  title: Allowed coding agents
+  statement: Which coding agents are allowed to change this repository?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - agents-md
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_agents_md: AGENTS.md'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: agents
+- id: AG-WORKTREE
+  catalog_id: AG-WORKTREE
+  type: PROCEDURE
+  status: PROPOSED
+  title: Agent branch strategy
+  statement: Must agents work on a feature branch or worktree rather than directly
+    on main?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: agents
+- id: AI-BUDGET
+  catalog_id: AI-BUDGET
+  type: DECISION
+  status: PROPOSED
+  title: Run budgets
+  statement: Are token, time, or dollar budgets defined for model/agent runs?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: ai
+- id: API-IDEMPOTENCY
+  catalog_id: API-IDEMPOTENCY
+  type: DECISION
+  status: PROPOSED
+  title: Idempotency
+  statement: Which mutating endpoints must be idempotent?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - aws-wa
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: api
+- id: ARCH-DEPS
+  catalog_id: ARCH-DEPS
+  type: INVARIANT
+  status: PROPOSED
+  title: Dependency direction
+  statement: Are there forbidden dependency directions between modules/layers?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_src: src'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: architecture
+- id: ARCH-EXCEPTION
+  catalog_id: ARCH-EXCEPTION
+  type: PROCEDURE
+  status: PROPOSED
+  title: Architecture exception policy
+  statement: How are intentional architecture exceptions recorded?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  - bhawna
+  evidence: []
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: architecture
+- id: CI-PROVENANCE
+  catalog_id: CI-PROVENANCE
+  type: DECISION
+  status: PROPOSED
+  title: Release provenance
+  statement: Must published artifacts have provenance (e.g. Trusted Publishing)?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - slsa
+  - openssf
+  evidence:
+  - 'has_uv_lock: uv.lock'
+  - 'has_github_actions: .github/workflows'
+  - 'has_license: LICENSE'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: cicd
+- id: CORE-BUILD
+  catalog_id: CORE-BUILD
+  type: PROCEDURE
+  status: PROPOSED
+  title: Canonical build command
+  statement: What command builds the project or package?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - repo-evidence
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_license: LICENSE'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: CORE-DOCS
+  catalog_id: CORE-DOCS
+  type: DECISION
+  status: PROPOSED
+  title: Canonical documentation location
+  statement: Where is authoritative project documentation kept?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence: []
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: CORE-GENERATED
+  catalog_id: CORE-GENERATED
+  type: INVARIANT
+  status: PROPOSED
+  title: Generated code policy
+  statement: May generated code be edited by hand?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: CORE-LINT
+  catalog_id: CORE-LINT
+  type: PREFERENCE
+  status: PROPOSED
+  title: Linter
+  statement: Which linters are required in development?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: CORE-PLATFORMS
+  catalog_id: CORE-PLATFORMS
+  type: DECISION
+  status: PROPOSED
+  title: Supported platforms
+  statement: Which platforms must the project support?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: CORE-TYPES
+  catalog_id: CORE-TYPES
+  type: DECISION
+  status: PROPOSED
+  title: Type checking
+  statement: Is static type checking required?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: DATA-ACCESS
+  catalog_id: DATA-ACCESS
+  type: INVARIANT
+  status: PROPOSED
+  title: Data access path
+  statement: Must application code use the designated data-access layer rather than
+    ad-hoc connections?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: data
+- id: DEP-ADD
+  catalog_id: DEP-ADD
+  type: INVARIANT
+  status: PROPOSED
+  title: Adding dependencies
+  statement: Does adding a runtime dependency require justification or review?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - openssf
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: dependencies
+- id: DEP-PIN
+  catalog_id: DEP-PIN
+  type: DECISION
+  status: PROPOSED
+  title: Version pinning
+  statement: How are dependency versions pinned?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - openssf
+  - slsa
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: dependencies
+- id: DEP-REPLACE
+  catalog_id: DEP-REPLACE
+  type: INVARIANT
+  status: PROPOSED
+  title: Replacing established libraries
+  statement: May agents replace an established library with a different one without
+    an explicit decision?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'has_agents_md: AGENTS.md'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: dependencies
+- id: DOC-AGENTS
+  catalog_id: DOC-AGENTS
+  type: DECISION
+  status: PROPOSED
+  title: Agent instruction file
+  statement: Which file is the canonical instruction surface for coding agents?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - agents-md
+  evidence:
+  - 'has_agents_md: AGENTS.md'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: documentation
+- id: DOC-AUTH
+  catalog_id: DOC-AUTH
+  type: DECISION
+  status: PROPOSED
+  title: Authoritative docs
+  statement: Which documents win when they disagree (README, ADRs, .bhawna, wiki)?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - adr
+  - bhawna
+  evidence: []
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: documentation
+- id: FE-API
+  catalog_id: FE-API
+  type: DECISION
+  status: PROPOSED
+  title: Frontend data access
+  statement: How does the UI call backend APIs?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: frontend
+- id: OBS-OPS
+  catalog_id: OBS-OPS
+  type: DECISION
+  status: PROPOSED
+  title: Operational telemetry
+  statement: Which operational signals are required (logs, metrics, traces)?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-sre
+  - aws-wa
+  evidence:
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: observability
+- id: OPS-ROLLBACK
+  catalog_id: OPS-ROLLBACK
+  type: PROCEDURE
+  status: PROPOSED
+  title: Rollback
+  statement: How is a bad release rolled back?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-sre
+  - aws-wa
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: operations
+- id: PRIV-LOGS
+  catalog_id: PRIV-LOGS
+  type: INVARIANT
+  status: PROPOSED
+  title: Sensitive logging
+  statement: May secrets or raw personal data be written to logs?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: privacy
+- id: REL-RETRY
+  catalog_id: REL-RETRY
+  type: DECISION
+  status: PROPOSED
+  title: Retry limits
+  statement: Are retry/timeout/circuit-breaker policies defined for outbound calls?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - aws-wa
+  evidence:
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: reliability
+- id: REL-SLO
+  catalog_id: REL-SLO
+  type: DECISION
+  status: PROPOSED
+  title: Availability / SLO
+  statement: Are availability or latency SLOs defined?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-sre
+  - aws-wa
+  evidence:
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: reliability
+- id: SEC-UPLOAD
+  catalog_id: SEC-UPLOAD
+  type: INVARIANT
+  status: PROPOSED
+  title: File upload / SSRF boundary
+  statement: Are server-side fetches and uploads restricted to an allowlist or equivalent
+    control?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - owasp-asvs
+  evidence:
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: security
+- id: SEC-VULN
+  catalog_id: SEC-VULN
+  type: PROCEDURE
+  status: PROPOSED
+  title: Vulnerability reporting
+  statement: How are security vulnerabilities reported?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - openssf
+  - github-security
+  evidence:
+  - 'has_license: LICENSE'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: security
+- id: SCM-FORCE
+  catalog_id: SCM-FORCE
+  type: INVARIANT
+  status: PROPOSED
+  title: Force-push policy
+  statement: Are force-pushes allowed on the default branch?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - github-security
+  evidence:
+  - 'has_github_actions: .github/workflows'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: source_control
+- id: TEST-ISOLATION
+  catalog_id: TEST-ISOLATION
+  type: INVARIANT
+  status: PROPOSED
+  title: Integration test isolation
+  statement: Must integration tests use isolated state (no shared mutable prod-like
+    data)?
+  importance: MEDIUM
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  - 'token_s3: s3'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: testing
+- id: CORE-FORMAT
+  catalog_id: CORE-FORMAT
+  type: PREFERENCE
+  status: PROPOSED
+  title: Formatter
+  statement: Which formatter is the default?
+  importance: OPTIONAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_pyproject: pyproject.toml'
+  - 'has_uv_lock: uv.lock'
+  - 'token_pytest: pytest'
+  - 'token_typer: typer'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: core
+- id: OBS-CORRELATION
+  catalog_id: OBS-CORRELATION
+  type: PREFERENCE
+  status: PROPOSED
+  title: Correlation IDs
+  statement: Must requests carry a correlation ID?
+  importance: OPTIONAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: observability
+- id: OSS-SUPPORT
+  catalog_id: OSS-SUPPORT
+  type: PREFERENCE
+  status: PROPOSED
+  title: Support expectations
+  statement: What support commitment exists for users?
+  importance: OPTIONAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_license: LICENSE'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: open_source
+- id: OPS-ONCALL
+  catalog_id: OPS-ONCALL
+  type: DECISION
+  status: PROPOSED
+  title: Operational ownership
+  statement: Who owns production operations for this system?
+  importance: OPTIONAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - google-sre
+  evidence:
+  - 'token_s3: s3'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: operations
+- id: TEST-E2E
+  catalog_id: TEST-E2E
+  type: DECISION
+  status: PROPOSED
+  title: End-to-end tests
+  statement: Are end-to-end or browser tests part of the required gate?
+  importance: OPTIONAL
+  scope:
+  - '*'
+  answer: null
+  rationale: null
+  sources:
+  - bhawna
+  evidence:
+  - 'has_tests: tests'
+  - 'token_pytest: pytest'
+  - 'token_httpx: httpx'
+  confirmed_at: null
+  supersedes: []
+  superseded_by: null
+  pack: testing

@@ -6,7 +6,16 @@ from abc import ABC, abstractmethod
 
 import httpx
 
-from .models import EvaluationResult, InvariantSet, Verdict
+from .models import (
+    DecisionSet,
+    EvaluationResult,
+    ExceptionSet,
+    Invariant,
+    InvariantSet,
+    RecordStatus,
+    Verdict,
+)
+from .safety import safety_invariants
 
 
 class Evaluator(ABC):
@@ -16,8 +25,32 @@ class Evaluator(ABC):
         objective: str,
         constitution: str,
         invariants: InvariantSet,
+        decisions: DecisionSet | None = None,
+        exceptions: ExceptionSet | None = None,
     ) -> EvaluationResult:
         raise NotImplementedError
+
+
+def enforced_invariants(
+    invariants: InvariantSet,
+    exceptions: ExceptionSet | None = None,
+) -> list[Invariant]:
+    excepted = {e.invariant_id for e in (exceptions.exceptions if exceptions else [])}
+    rows = [i for i in invariants.invariants if i.id not in excepted]
+    for extra in safety_invariants():
+        if extra.id not in excepted:
+            rows.append(extra)
+    return rows
+
+
+def decision_context(decisions: DecisionSet | None) -> str:
+    if decisions is None:
+        return ""
+    lines: list[str] = []
+    for rec in decisions.records:
+        if rec.status is RecordStatus.accepted:
+            lines.append(f"- [{rec.type.value}] {rec.id}: {rec.statement}")
+    return "\n".join(lines)
 
 
 class OpenAICompatibleEvaluator(Evaluator):
@@ -38,13 +71,24 @@ class OpenAICompatibleEvaluator(Evaluator):
         objective: str,
         constitution: str,
         invariants: InvariantSet,
+        decisions: DecisionSet | None = None,
+        exceptions: ExceptionSet | None = None,
     ) -> EvaluationResult:
-        invariant_json = invariants.model_dump_json(indent=2)
+        enforced = InvariantSet(
+            project=invariants.project,
+            version=invariants.version,
+            invariants=enforced_invariants(invariants, exceptions),
+        )
+        invariant_json = enforced.model_dump_json(indent=2)
+        accepted = decision_context(decisions)
         system = (
-            "You are an architecture preflight reviewer. Your job is to detect whether a proposed "
-            "engineering objective conflicts with the project's explicit invariants. Do not invent "
-            "new requirements. Examples in an objective are evidence, not production rules unless "
-            "the project explicitly says otherwise. Return JSON only."
+            "You are an architecture preflight reviewer. Detect whether a proposed "
+            "engineering objective conflicts with CONFIRMED invariants and accepted "
+            "project decisions. Do not invent requirements. Do not treat unresolved, "
+            "deferred, rejected, or proposed records as blocking rules. Do not treat "
+            "catalog suggestions as project law. Examples in an objective are evidence, "
+            "not production rules unless the project explicitly says otherwise. "
+            "Return JSON only."
         )
         schema = """{
   "verdict": "PASS|REVIEW|BLOCKED",
@@ -62,7 +106,8 @@ class OpenAICompatibleEvaluator(Evaluator):
 }"""
         user = (
             f"PROJECT CONSTITUTION\n{constitution}\n\n"
-            f"INVARIANTS\n{invariant_json}\n\n"
+            f"CONFIRMED INVARIANTS AND SAFETY POLICY\n{invariant_json}\n\n"
+            f"ACCEPTED DECISIONS (context, not unconfirmed)\n{accepted or '(none)'}\n\n"
             f"OBJECTIVE\n{objective}\n\n"
             f"Return this JSON shape exactly:\n{schema}"
         )
@@ -100,8 +145,10 @@ class StaticPassEvaluator(Evaluator):
         objective: str,
         constitution: str,
         invariants: InvariantSet,
+        decisions: DecisionSet | None = None,
+        exceptions: ExceptionSet | None = None,
     ) -> EvaluationResult:
-        del objective, constitution, invariants
+        del objective, constitution, invariants, decisions, exceptions
         return EvaluationResult(
             verdict=Verdict.pass_,
             summary="Configuration is valid. Semantic evaluation was not run.",

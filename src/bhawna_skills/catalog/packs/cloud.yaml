@@ -1,0 +1,44 @@
+id: cloud
+title: Cloud and infrastructure
+version: 1
+items:
+  - id: CLOUD-PROVIDER
+    title: Cloud provider
+    type: DECISION
+    category: cloud
+    importance: HIGH
+    question: Where does this system primarily run?
+    applies_when: { any_dimensions: [cloud, aws, azure, gcp, containers, iac] }
+    answer_type: choice
+    options: [aws, azure, gcp, self-hosted, hybrid, undecided]
+    sources: [aws-wa, repo-evidence]
+  - id: CLOUD-IAC
+    title: Infrastructure as code
+    type: DECISION
+    category: cloud
+    importance: HIGH
+    question: Which IaC toolchain is canonical?
+    applies_when: { any_dimensions: [iac, terraform, cloud] }
+    answer_type: choice
+    options: [terraform, pulumi, cloudformation, bicep, other, none, undecided]
+    sources: [repo-evidence]
+  - id: CLOUD-ENV
+    title: Environment isolation
+    type: INVARIANT
+    category: cloud
+    importance: HIGH
+    question: Must staging and production be isolated (accounts, projects, or equivalent)?
+    applies_when: { any_dimensions: [cloud, cicd, backend] }
+    answer_type: choice
+    options: [isolated-required, shared, not_applicable, undecided]
+    sources: [aws-wa, twelve-factor]
+  - id: CLOUD-SECRETS
+    title: Runtime secret store
+    type: DECISION
+    category: cloud
+    importance: HIGH
+    question: Where do runtime secrets come from?
+    applies_when: { any_dimensions: [cloud, backend, cicd] }
+    answer_type: choice
+    options: [cloud-secret-manager, vault, ci-secrets, env-files, mixed, undecided]
+    sources: [twelve-factor, owasp-asvs]

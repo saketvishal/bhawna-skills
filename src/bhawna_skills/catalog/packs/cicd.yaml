@@ -1,0 +1,57 @@
+id: cicd
+title: CI/CD
+version: 1
+items:
+  - id: CI-PROVIDER
+    title: CI provider
+    type: DECISION
+    category: cicd
+    importance: HIGH
+    question: Which CI system is canonical?
+    applies_when: { any_dimensions: [cicd, github-actions, sparse] }
+    answer_type: choice
+    options: [github-actions, gitlab-ci, circleci, jenkins, other, none, undecided]
+    sources: [repo-evidence]
+  - id: CI-REQUIRED
+    title: Required checks
+    type: DETERMINISTIC_GATE
+    category: cicd
+    importance: HIGH
+    question: Which checks must pass before merge?
+    applies_when: { any_dimensions: [cicd, github-actions, testing] }
+    answer_type: free_text
+    sources: [github-security]
+  - id: CI-AGENTS-EDIT
+    title: May agents edit CI workflows?
+    type: INVARIANT
+    category: cicd
+    importance: HIGH
+    question: May coding agents modify CI workflow files without extra review?
+    applies_when: { any_dimensions: [cicd, agents, github-actions] }
+    answer_type: choice
+    options: [human-approval-required, agents-may-edit, undecided]
+    sources: [github-security, slsa]
+  - id: CI-DEPLOY
+    title: Who may deploy to production?
+    type: INVARIANT
+    category: cicd
+    importance: CRITICAL
+    question: Who is allowed to deploy to production?
+    applies_when: { any_dimensions: [cicd, cloud, backend] }
+    answer_type: choice
+    options: [humans-only, humans-or-cd, agents-with-approval, undecided]
+    sources: [nist-ssdf, slsa]
+    invariant_templates:
+      - title: Production deploy authority
+        statement: "Production deployment authority: {answer}."
+        severity: block
+  - id: CI-PROVENANCE
+    title: Release provenance
+    type: DECISION
+    category: cicd
+    importance: MEDIUM
+    question: Must published artifacts have provenance (e.g. Trusted Publishing)?
+    applies_when: { any_dimensions: [open-source, cicd, packaging] }
+    answer_type: choice
+    options: [required, optional, not_applicable, undecided]
+    sources: [slsa, openssf]

@@ -1,0 +1,91 @@
+id: ai
+title: AI and LLM systems
+version: 1
+items:
+  - id: AI-PROVIDER
+    title: Model provider abstraction
+    type: INVARIANT
+    category: ai
+    importance: HIGH
+    question: Must provider-specific client code stay behind an established abstraction?
+    applies_when: { any_dimensions: [ai, llm, agents] }
+    answer_type: choice
+    options: [abstraction-required, direct-ok, undecided]
+    sources: [google-saif, bhawna]
+    invariant_templates:
+      - title: Provider abstraction
+        statement: "Model provider policy: {answer}."
+        severity: block
+  - id: AI-CANONICAL-WRITE
+    title: LLM output vs canonical state
+    type: INVARIANT
+    category: ai
+    importance: CRITICAL
+    question: May raw LLM output become canonical persisted state?
+    applies_when: { any_dimensions: [ai, llm, data, vector-store] }
+    answer_type: choice
+    options: [never-raw, only-after-schema-validation, allowed, undecided]
+    sources: [google-saif, bhawna]
+    follow_ups:
+      - { id: AI-VALIDATE, when_answer_in: [only-after-schema-validation, never-raw] }
+    invariant_templates:
+      - title: LLM canonical writes
+        statement: "Raw LLM output becoming canonical state: {answer}."
+        severity: block
+  - id: AI-VALIDATE
+    title: Structured output validation
+    type: INVARIANT
+    category: ai
+    importance: HIGH
+    question: Must model-generated structured data pass schema validation before persistence?
+    applies_when: { any_dimensions: [ai, llm, data] }
+    answer_type: choice
+    options: [required, optional, undecided]
+    sources: [google-saif]
+    invariant_templates:
+      - title: Validate before persist
+        statement: "Model-generated structured data persistence policy: {answer}."
+        severity: block
+  - id: AI-BUDGET
+    title: Run budgets
+    type: DECISION
+    category: ai
+    importance: MEDIUM
+    question: Are token, time, or dollar budgets defined for model/agent runs?
+    applies_when: { any_dimensions: [ai, llm, agents] }
+    answer_type: choice
+    options: [defined, unspecified, undecided]
+    sources: [bhawna]
+  - id: AI-EXAMPLES
+    title: Evals are not parsers
+    type: INVARIANT
+    category: ai
+    importance: HIGH
+    question: May examples or eval fixtures become production parsing rules?
+    applies_when: { any_dimensions: [ai, llm, agents] }
+    answer_type: choice
+    options: [forbidden, allowed, undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Examples are fixtures
+        statement: "Using examples/evals as production parsing rules is {answer}."
+        severity: block
+  - id: AI-RAG
+    title: Retrieval policy
+    type: DECISION
+    category: ai
+    importance: HIGH
+    question: If RAG is used, what may be retrieved and who owns the source of truth?
+    applies_when: { any_dimensions: [ai, vector-store] }
+    answer_type: free_text
+    sources: [google-saif]
+  - id: AI-FALLBACK
+    title: Provider fallback
+    type: DECISION
+    category: ai
+    importance: OPTIONAL
+    question: Is there a fallback model/provider when the primary is unavailable?
+    applies_when: { any_dimensions: [ai, llm] }
+    answer_type: choice
+    options: [defined, none, undecided]
+    sources: [bhawna]

@@ -1,0 +1,129 @@
+id: core
+title: Project foundation
+version: 1
+description: Languages, toolchain, layout, and documentation homes.
+items:
+  - id: CORE-LANG
+    title: Primary languages
+    type: DECISION
+    category: core
+    importance: CRITICAL
+    question: Which languages are first-class in this repository?
+    rationale: Tooling, CI, and agent instructions follow the language set.
+    applies_when: { sparse_starter: true, any_dimensions: [python, javascript, rust, go, java, dotnet, code] }
+    answer_type: multi
+    options: [python, typescript, javascript, go, rust, java, csharp, other, undecided]
+    sources: [repo-evidence, bhawna]
+    invariant_templates:
+      - title: Primary languages
+        statement: "First-class languages for this repository are: {answer}."
+        severity: review
+  - id: CORE-PKG
+    title: Dependency workflow
+    type: INVARIANT
+    category: core
+    importance: HIGH
+    question: Which dependency/package workflow is canonical?
+    applies_when: { any_dimensions: [python, javascript, rust, go, uv, pnpm, poetry, pip, packaging, sparse] }
+    discovery_hints: { dimensions: [uv, pnpm, poetry, pip] }
+    answer_type: choice
+    options: [uv, pip, poetry, pnpm, npm, yarn, cargo, go-modules, other, undecided]
+    sources: [repo-evidence, twelve-factor]
+    follow_ups:
+      - { id: CORE-LOCK, when_answer_in: ["*"] }
+    invariant_templates:
+      - title: Canonical package workflow
+        statement: "Python/JS/other dependency installation and development commands use {answer} as the project workflow."
+        severity: block
+  - id: CORE-LOCK
+    title: Lockfile policy
+    type: DECISION
+    category: core
+    importance: HIGH
+    question: Must a lockfile be committed and used for installs?
+    applies_when: { any_dimensions: [python, javascript, packaging, uv] }
+    answer_type: choice
+    options: [yes-committed-lockfile, optional, undecided]
+    sources: [openssf, slsa]
+  - id: CORE-FORMAT
+    title: Formatter
+    type: PREFERENCE
+    category: core
+    importance: OPTIONAL
+    question: Which formatter is the default?
+    applies_when: { any_dimensions: [python, javascript] }
+    answer_type: choice
+    options: [ruff, black, prettier, biome, other, not_applicable, undecided]
+    sources: [bhawna]
+  - id: CORE-LINT
+    title: Linter
+    type: PREFERENCE
+    category: core
+    importance: MEDIUM
+    question: Which linters are required in development?
+    applies_when: { any_dimensions: [python, javascript, rust, go] }
+    answer_type: multi
+    options: [ruff, eslint, clippy, golangci-lint, other, undecided]
+    sources: [bhawna]
+  - id: CORE-TYPES
+    title: Type checking
+    type: DECISION
+    category: core
+    importance: MEDIUM
+    question: Is static type checking required?
+    applies_when: { any_dimensions: [python, javascript, typescript] }
+    answer_type: choice
+    options: [required, optional, not_applicable, undecided]
+    sources: [bhawna]
+  - id: CORE-TESTCMD
+    title: Canonical test command
+    type: PROCEDURE
+    category: core
+    importance: HIGH
+    question: What command is the canonical way to run tests?
+    applies_when: { any_dimensions: [testing, python, javascript, sparse] }
+    answer_type: free_text
+    sources: [repo-evidence]
+  - id: CORE-BUILD
+    title: Canonical build command
+    type: PROCEDURE
+    category: core
+    importance: MEDIUM
+    question: What command builds the project or package?
+    applies_when: { any_dimensions: [python, javascript, packaging, open-source] }
+    answer_type: free_text
+    sources: [repo-evidence]
+  - id: CORE-DOCS
+    title: Canonical documentation location
+    type: DECISION
+    category: core
+    importance: MEDIUM
+    question: Where is authoritative project documentation kept?
+    applies_when: { sparse_starter: true, always: false, any_dimensions: [code, sparse, documentation] }
+    answer_type: choice
+    options: [README.md, docs/, wiki, website, mixed, undecided]
+    sources: [bhawna]
+  - id: CORE-GENERATED
+    title: Generated code policy
+    type: INVARIANT
+    category: core
+    importance: MEDIUM
+    question: May generated code be edited by hand?
+    applies_when: { any_dimensions: [code, python, javascript] }
+    answer_type: choice
+    options: [do-not-edit-generated, generated-may-be-edited, not_applicable, undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Generated code
+        statement: "Generated code policy: {answer}."
+        severity: review
+  - id: CORE-PLATFORMS
+    title: Supported platforms
+    type: DECISION
+    category: core
+    importance: MEDIUM
+    question: Which platforms must the project support?
+    applies_when: { sparse_starter: true, any_dimensions: [python, javascript, cli, sparse] }
+    answer_type: multi
+    options: [linux, macos, windows, other, undecided]
+    sources: [bhawna]

@@ -1,0 +1,34 @@
+id: documentation
+title: Documentation and ADRs
+version: 1
+items:
+  - id: DOC-AUTH
+    title: Authoritative docs
+    type: DECISION
+    category: documentation
+    importance: MEDIUM
+    question: Which documents win when they disagree (README, ADRs, .bhawna, wiki)?
+    applies_when: { any_dimensions: [documentation, architecture, code, sparse] }
+    answer_type: choice
+    options: [bhawna-then-adr, adr-first, readme-first, mixed, undecided]
+    sources: [adr, bhawna]
+  - id: DOC-SUPERSEDE
+    title: Superseding decisions
+    type: PROCEDURE
+    category: documentation
+    importance: HIGH
+    question: When a decision is replaced, is the old record kept with SUPERSEDED status?
+    applies_when: { any_dimensions: [architecture, documentation, agents, sparse] }
+    answer_type: choice
+    options: [keep-history, delete-old, undecided]
+    sources: [adr, bhawna]
+  - id: DOC-AGENTS
+    title: Agent instruction file
+    type: DECISION
+    category: documentation
+    importance: MEDIUM
+    question: Which file is the canonical instruction surface for coding agents?
+    applies_when: { any_dimensions: [agents, documentation, code] }
+    answer_type: choice
+    options: [AGENTS.md, CONTRIBUTING.md, .bhawna, mixed, undecided]
+    sources: [agents-md]

@@ -1,0 +1,31 @@
+id: open_source
+title: Open-source / package projects
+version: 1
+items:
+  - id: OSS-LICENSE
+    title: License
+    type: DECISION
+    category: open_source
+    importance: HIGH
+    question: What license applies to this repository?
+    applies_when: { any_dimensions: [open-source, packaging] }
+    answer_type: free_text
+    sources: [openssf]
+  - id: OSS-RELEASE
+    title: Release process
+    type: PROCEDURE
+    category: open_source
+    importance: HIGH
+    question: How are versions tagged and published?
+    applies_when: { any_dimensions: [open-source, packaging, cicd] }
+    answer_type: free_text
+    sources: [slsa]
+  - id: OSS-SUPPORT
+    title: Support expectations
+    type: PREFERENCE
+    category: open_source
+    importance: OPTIONAL
+    question: What support commitment exists for users?
+    applies_when: { any_dimensions: [open-source] }
+    answer_type: free_text
+    sources: [bhawna]

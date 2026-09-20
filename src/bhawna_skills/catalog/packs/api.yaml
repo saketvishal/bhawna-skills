@@ -1,0 +1,48 @@
+id: api
+title: API and integration
+version: 1
+description: Contracts, compatibility, and integration semantics.
+items:
+  - id: API-STYLE
+    title: API style
+    type: DECISION
+    category: api
+    importance: HIGH
+    question: What API styles does this project expose?
+    applies_when: { any_dimensions: [api, backend] }
+    answer_type: multi
+    options: [rest, graphql, grpc, webhooks, events, internal-rpc, none, undecided]
+    sources: [bhawna]
+  - id: API-BREAK
+    title: Breaking change policy
+    type: INVARIANT
+    category: api
+    importance: HIGH
+    question: Do breaking API changes require explicit approval and versioning?
+    applies_when: { any_dimensions: [api, backend] }
+    answer_type: choice
+    options: [approval-and-version, version-only, unversioned, not_applicable, undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Breaking APIs
+        statement: "Breaking API change policy: {answer}."
+        severity: block
+  - id: API-IDEMPOTENCY
+    title: Idempotency
+    type: DECISION
+    category: api
+    importance: MEDIUM
+    question: Which mutating endpoints must be idempotent?
+    applies_when: { any_dimensions: [api, backend] }
+    answer_type: free_text
+    sources: [aws-wa]
+  - id: API-AUTHN
+    title: API authentication
+    type: DECISION
+    category: api
+    importance: CRITICAL
+    question: How are external and internal API callers authenticated?
+    applies_when: { any_dimensions: [api, backend] }
+    answer_type: choice
+    options: [oidc, api-keys, mtls, session, mixed, none, undecided]
+    sources: [owasp-asvs, ms-security]

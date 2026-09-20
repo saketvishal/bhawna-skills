@@ -1,0 +1,33 @@
+id: reliability
+title: Reliability
+version: 1
+items:
+  - id: REL-SLO
+    title: Availability / SLO
+    type: DECISION
+    category: reliability
+    importance: MEDIUM
+    question: Are availability or latency SLOs defined?
+    applies_when: { any_dimensions: [backend, api, cloud, saas] }
+    answer_type: choice
+    options: [defined, not-defined, not_applicable, undecided]
+    sources: [google-sre, aws-wa]
+  - id: REL-RETRY
+    title: Retry limits
+    type: DECISION
+    category: reliability
+    importance: MEDIUM
+    question: Are retry/timeout/circuit-breaker policies defined for outbound calls?
+    applies_when: { any_dimensions: [api, backend, cloud] }
+    answer_type: choice
+    options: [defined, unspecified, not_applicable, undecided]
+    sources: [aws-wa]
+  - id: REL-DEGRADE
+    title: Degraded mode
+    type: DECISION
+    category: reliability
+    importance: OPTIONAL
+    question: What happens when a non-canonical dependency (cache, search, vector) is down?
+    applies_when: { any_dimensions: [vector-store, search, cache, backend] }
+    answer_type: free_text
+    sources: [google-sre]

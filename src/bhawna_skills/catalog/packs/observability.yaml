@@ -1,0 +1,34 @@
+id: observability
+title: Observability
+version: 1
+items:
+  - id: OBS-OPS
+    title: Operational telemetry
+    type: DECISION
+    category: observability
+    importance: MEDIUM
+    question: Which operational signals are required (logs, metrics, traces)?
+    applies_when: { any_dimensions: [backend, api, cloud] }
+    answer_type: multi
+    options: [logs, metrics, traces, error-reporting, none, undecided]
+    sources: [google-sre, aws-wa]
+  - id: OBS-VS-ANALYTICS
+    title: Ops vs product analytics
+    type: DECISION
+    category: observability
+    importance: MEDIUM
+    question: Are operational telemetry and product analytics kept distinct?
+    applies_when: { any_dimensions: [backend, frontend, observability] }
+    answer_type: choice
+    options: [distinct, mixed, not_applicable, undecided]
+    sources: [bhawna]
+  - id: OBS-CORRELATION
+    title: Correlation IDs
+    type: PREFERENCE
+    category: observability
+    importance: OPTIONAL
+    question: Must requests carry a correlation ID?
+    applies_when: { any_dimensions: [api, backend] }
+    answer_type: choice
+    options: [required, optional, undecided]
+    sources: [bhawna]

@@ -1,0 +1,48 @@
+id: privacy
+title: Privacy and data governance
+version: 1
+items:
+  - id: PRIV-CLASSES
+    title: Sensitive data classes
+    type: DECISION
+    category: privacy
+    importance: HIGH
+    question: Which sensitive data classes does the project handle?
+    applies_when: { any_dimensions: [backend, api, ai, data] }
+    answer_type: multi
+    options: [personal, financial, health, legal, secrets, none, undecided]
+    sources: [owasp-asvs, google-saif]
+  - id: PRIV-PROD-IN-TEST
+    title: Production data in non-production
+    type: INVARIANT
+    category: privacy
+    importance: HIGH
+    question: May production user content be copied into test or development environments?
+    applies_when: { any_dimensions: [data, backend, privacy] }
+    answer_type: choice
+    options: [forbidden, masked-only, allowed, not_applicable, undecided]
+    sources: [owasp-asvs]
+    invariant_templates:
+      - title: Prod data in test
+        statement: "Production data in non-production environments: {answer}."
+        severity: block
+  - id: PRIV-MODEL
+    title: Sharing with model providers
+    type: INVARIANT
+    category: privacy
+    importance: HIGH
+    question: What project content may be sent to model providers?
+    applies_when: { any_dimensions: [ai, llm, agents] }
+    answer_type: choice
+    options: [no-secrets-no-prod-pii, allow-with-review, unspecified, undecided]
+    sources: [google-saif, bhawna]
+  - id: PRIV-LOGS
+    title: Sensitive logging
+    type: INVARIANT
+    category: privacy
+    importance: MEDIUM
+    question: May secrets or raw personal data be written to logs?
+    applies_when: { any_dimensions: [backend, api, observability, ai] }
+    answer_type: choice
+    options: [forbidden, allowed, undecided]
+    sources: [owasp-asvs]

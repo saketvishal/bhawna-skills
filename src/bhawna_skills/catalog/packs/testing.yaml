@@ -1,0 +1,66 @@
+id: testing
+title: Testing and quality
+version: 1
+items:
+  - id: TEST-UNIT
+    title: Unit tests required
+    type: DETERMINISTIC_GATE
+    category: testing
+    importance: HIGH
+    question: Must changes include or update unit tests when behavior changes?
+    applies_when: { any_dimensions: [testing, python, javascript, sparse] }
+    answer_type: choice
+    options: ["yes", "no", undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Tests with behavior changes
+        statement: "Behavior-change test policy: {answer}."
+        severity: review
+  - id: TEST-REGRESSION
+    title: Bug-fix regression tests
+    type: INVARIANT
+    category: testing
+    importance: HIGH
+    question: Must bug fixes add a regression test?
+    applies_when: { any_dimensions: [testing, python, javascript] }
+    answer_type: choice
+    options: ["yes", "no", undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Regression tests
+        statement: "Bug-fix regression test policy: {answer}."
+        severity: block
+  - id: TEST-WEAKEN
+    title: Do not weaken tests to pass CI
+    type: INVARIANT
+    category: testing
+    importance: HIGH
+    question: Is weakening tests solely to make CI pass forbidden?
+    applies_when: { any_dimensions: [testing, cicd, python, javascript, sparse] }
+    answer_type: choice
+    options: [forbidden, allowed-with-review, undecided]
+    sources: [bhawna]
+    invariant_templates:
+      - title: Do not weaken tests
+        statement: "Weakening tests solely to make CI pass is {answer}."
+        severity: block
+  - id: TEST-ISOLATION
+    title: Integration test isolation
+    type: INVARIANT
+    category: testing
+    importance: MEDIUM
+    question: Must integration tests use isolated state (no shared mutable prod-like data)?
+    applies_when: { any_dimensions: [testing, data, backend] }
+    answer_type: choice
+    options: [isolated-required, shared-allowed, not_applicable, undecided]
+    sources: [bhawna]
+  - id: TEST-E2E
+    title: End-to-end tests
+    type: DECISION
+    category: testing
+    importance: OPTIONAL
+    question: Are end-to-end or browser tests part of the required gate?
+    applies_when: { any_dimensions: [frontend, api, testing] }
+    answer_type: choice
+    options: [required, optional, not_applicable, undecided]
+    sources: [bhawna]

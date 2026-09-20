@@ -1,0 +1,177 @@
+signals:
+  - id: has_pyproject
+    kind: file
+    path: pyproject.toml
+    dimensions: [python]
+  - id: has_uv_lock
+    kind: file
+    path: uv.lock
+    dimensions: [python, uv, packaging]
+  - id: has_requirements
+    kind: file
+    path: requirements.txt
+    dimensions: [python, pip]
+  - id: has_poetry_lock
+    kind: file
+    path: poetry.lock
+    dimensions: [python, poetry]
+  - id: has_package_json
+    kind: file
+    path: package.json
+    dimensions: [javascript, node]
+  - id: has_pnpm_lock
+    kind: file
+    path: pnpm-lock.yaml
+    dimensions: [javascript, pnpm]
+  - id: has_yarn_lock
+    kind: file
+    path: yarn.lock
+    dimensions: [javascript, yarn]
+  - id: has_cargo
+    kind: file
+    path: Cargo.toml
+    dimensions: [rust]
+  - id: has_go_mod
+    kind: file
+    path: go.mod
+    dimensions: [go]
+  - id: has_csproj
+    kind: glob
+    pattern: "*.csproj"
+    dimensions: [dotnet]
+  - id: has_pom
+    kind: file
+    path: pom.xml
+    dimensions: [java]
+  - id: has_gradle
+    kind: glob
+    pattern: "*.gradle*"
+    dimensions: [java]
+  - id: has_github_actions
+    kind: dir
+    path: .github/workflows
+    dimensions: [cicd, github-actions]
+  - id: has_dockerfile
+    kind: file
+    path: Dockerfile
+    dimensions: [containers, cloud]
+  - id: has_compose
+    kind: file
+    path: docker-compose.yml
+    dimensions: [containers]
+  - id: has_terraform
+    kind: glob
+    pattern: "*.tf"
+    dimensions: [cloud, iac, terraform]
+  - id: has_k8s
+    kind: glob
+    pattern: "**/k8s/**/*.yaml"
+    dimensions: [cloud, kubernetes]
+  - id: has_adr
+    kind: dir
+    path: docs/adr
+    dimensions: [documentation, architecture]
+  - id: has_agents_md
+    kind: file
+    path: AGENTS.md
+    dimensions: [agents]
+  - id: has_src
+    kind: dir
+    path: src
+    dimensions: [library-or-app]
+  - id: has_tests
+    kind: dir
+    path: tests
+    dimensions: [testing]
+  - id: has_license
+    kind: file
+    path: LICENSE
+    dimensions: [open-source]
+  - id: token_pytest
+    kind: token
+    tokens: [pytest]
+    dimensions: [python, testing]
+  - id: token_fastapi
+    kind: token
+    tokens: [fastapi]
+    dimensions: [python, api, backend]
+  - id: token_django
+    kind: token
+    tokens: [django]
+    dimensions: [python, backend, web]
+  - id: token_flask
+    kind: token
+    tokens: [flask]
+    dimensions: [python, api, backend]
+  - id: token_typer
+    kind: token
+    tokens: [typer, click]
+    dimensions: [python, cli]
+  - id: token_react
+    kind: token
+    tokens: ['"react"', react-dom]
+    dimensions: [frontend, javascript]
+  - id: token_next
+    kind: token
+    tokens: [next]
+    dimensions: [frontend, javascript]
+  - id: token_vue
+    kind: token
+    tokens: [vue]
+    dimensions: [frontend]
+  - id: token_postgres
+    kind: token
+    tokens: [psycopg, psycopg2, asyncpg, postgres, postgresql, sqlalchemy]
+    dimensions: [data, persistence, sql]
+  - id: token_mysql
+    kind: token
+    tokens: [mysql, pymysql, mysqlclient]
+    dimensions: [data, persistence, sql]
+  - id: token_sqlite
+    kind: token
+    tokens: [sqlite]
+    dimensions: [data, persistence, sql]
+  - id: token_mongo
+    kind: token
+    tokens: [pymongo, mongodb, mongoose]
+    dimensions: [data, persistence, document-store]
+  - id: token_redis
+    kind: token
+    tokens: [redis]
+    dimensions: [data, cache]
+  - id: token_s3
+    kind: token
+    tokens: [boto3, s3, minio]
+    dimensions: [data, object-storage, cloud]
+  - id: token_vector
+    kind: token
+    tokens: [qdrant, pinecone, weaviate, chromadb, pgvector, milvus]
+    dimensions: [data, vector-store, ai]
+  - id: token_graph
+    kind: token
+    tokens: [neo4j, networkx, arangodb]
+    dimensions: [data, graph]
+  - id: token_search
+    kind: token
+    tokens: [elasticsearch, opensearch, meilisearch, typesense]
+    dimensions: [data, search]
+  - id: token_openai
+    kind: token
+    tokens: [openai, anthropic, langchain, llama_index, tiktoken]
+    dimensions: [ai, llm]
+  - id: token_httpx
+    kind: token
+    tokens: [httpx, aiohttp]
+    dimensions: [api]
+  - id: token_aws
+    kind: token
+    tokens: [boto3, aws-]
+    dimensions: [cloud, aws]
+  - id: token_azure
+    kind: token
+    tokens: [azure-]
+    dimensions: [cloud, azure]
+  - id: token_gcp
+    kind: token
+    tokens: [google-cloud]
+    dimensions: [cloud, gcp]

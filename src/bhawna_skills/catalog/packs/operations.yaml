@@ -1,0 +1,22 @@
+id: operations
+title: Operations
+version: 1
+items:
+  - id: OPS-ONCALL
+    title: Operational ownership
+    type: DECISION
+    category: operations
+    importance: OPTIONAL
+    question: Who owns production operations for this system?
+    applies_when: { any_dimensions: [cloud, backend, api] }
+    answer_type: free_text
+    sources: [google-sre]
+  - id: OPS-ROLLBACK
+    title: Rollback
+    type: PROCEDURE
+    category: operations
+    importance: MEDIUM
+    question: How is a bad release rolled back?
+    applies_when: { any_dimensions: [cicd, cloud, backend] }
+    answer_type: free_text
+    sources: [google-sre, aws-wa]

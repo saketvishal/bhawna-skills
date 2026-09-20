@@ -29,6 +29,8 @@ jobs:
         run: uv run pytest --cov=bhawna_skills --cov-report=term-missing
       - name: Demo (config-only)
         run: uv run python examples/run_demo.py
+      - name: Decision catalog demos
+        run: uv run python examples/run_decision_demos.py
       - name: Build package
         run: uv build
       - name: Installed-artifact CLI smoke
@@ -37,3 +39,5 @@ jobs:
           uvx --from "$wheel" bhawna --help
           uvx --from "$wheel" bhawna check examples/sample-project/objectives/use-uv.md \
             --project examples/sample-project --config-only
+          uvx --from "$wheel" bhawna init --help
+          uvx --from "$wheel" bhawna review --help

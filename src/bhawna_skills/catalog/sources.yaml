@@ -1,0 +1,69 @@
+sources:
+  - id: nist-ssdf
+    name: NIST SSDF
+    url: https://csrc.nist.gov/projects/ssdf
+    source_type: guidance
+    concept: Secure software development practices
+  - id: owasp-asvs
+    name: OWASP ASVS
+    url: https://owasp.org/www-project-application-security-verification-standard/
+    source_type: guidance
+    concept: Application security verification categories
+  - id: slsa
+    name: SLSA
+    url: https://slsa.dev/
+    source_type: guidance
+    concept: Supply-chain levels for software artifacts
+  - id: openssf
+    name: OpenSSF
+    url: https://openssf.org/
+    source_type: guidance
+    concept: Open source security baseline practices
+  - id: github-security
+    name: GitHub security guidance
+    url: https://docs.github.com/en/code-security
+    source_type: guidance
+    concept: Branch protection, secrets, and Actions permissions
+  - id: aws-wa
+    name: AWS Well-Architected
+    url: https://aws.amazon.com/architecture/well-architected/
+    source_type: guidance
+    concept: Operational, security, reliability, and cost pillars
+  - id: google-sre
+    name: Google SRE
+    url: https://sre.google/books/
+    source_type: guidance
+    concept: SLOs, error budgets, and operational toil
+  - id: google-saif
+    name: Google SAIF
+    url: https://saif.google/
+    source_type: guidance
+    concept: Secure AI framework themes
+  - id: ms-security
+    name: Microsoft security guidance
+    url: https://learn.microsoft.com/security/
+    source_type: guidance
+    concept: Identity, secrets, and secure development
+  - id: twelve-factor
+    name: Twelve-Factor App
+    url: https://12factor.net/
+    source_type: guidance
+    concept: Config, backing services, and build/release/run
+  - id: adr
+    name: Architectural Decision Records
+    url: https://adr.github.io/
+    source_type: practice
+    concept: Recorded, supersedable architecture decisions
+  - id: agents-md
+    name: AGENTS.md convention
+    url: https://agents.md/
+    source_type: practice
+    concept: Repository instructions for coding agents
+  - id: repo-evidence
+    name: Repository evidence
+    source_type: observation
+    concept: Deterministic files, lockfiles, and manifests
+  - id: bhawna
+    name: Bhawna Skills research
+    source_type: product
+    concept: Decision memory for coding-agent workflows

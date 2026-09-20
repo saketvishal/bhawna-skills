@@ -1,0 +1,18 @@
+DATA-PERSIST:
+  action: accept
+  answer: yes
+DATA-CANONICAL:
+  action: accept
+  answer: postgresql
+DATA-VECTOR-ROLE:
+  action: accept
+  answer: derived-retrieval-index
+AI-CANONICAL-WRITE:
+  action: accept
+  answer: only-after-schema-validation
+AI-VALIDATE:
+  action: accept
+  answer: required
+AI-EXAMPLES:
+  action: accept
+  answer: forbidden

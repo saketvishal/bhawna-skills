@@ -1,0 +1,64 @@
+id: architecture
+title: Architecture
+version: 1
+description: Structure, boundaries, and change control.
+items:
+  - id: ARCH-SHAPE
+    title: System shape
+    type: DECISION
+    category: architecture
+    importance: HIGH
+    question: What is the primary structural shape?
+    applies_when: { any_dimensions: [backend, api, frontend, sparse] }
+    answer_type: choice
+    options: [library, cli, monolith, modular-monolith, microservices, other, undecided]
+    sources: [adr, bhawna]
+    follow_ups:
+      - { id: ARCH-NEWSVC, when_answer_in: [microservices, modular-monolith] }
+    invariant_templates:
+      - title: System shape
+        statement: "The confirmed system shape is {answer}."
+        severity: review
+  - id: ARCH-NEWSVC
+    title: New service approval
+    type: INVARIANT
+    category: architecture
+    importance: HIGH
+    question: Does adding a new service or deployable require explicit approval?
+    applies_when: { any_dimensions: [backend, api, cloud] }
+    answer_type: choice
+    options: [yes-approval-required, "no", undecided]
+    sources: [adr, aws-wa]
+    invariant_templates:
+      - title: New services
+        statement: "Policy for new services/deployables: {answer}."
+        severity: block
+  - id: ARCH-ADR
+    title: Architectural decision records
+    type: PROCEDURE
+    category: architecture
+    importance: HIGH
+    question: Where are architectural decisions recorded, and must new architecture changes add/update an ADR?
+    applies_when: { any_dimensions: [architecture, documentation, code, sparse] }
+    answer_type: choice
+    options: [adr-required, docs-only, bhawna-decisions, mixed, undecided]
+    sources: [adr]
+  - id: ARCH-DEPS
+    title: Dependency direction
+    type: INVARIANT
+    category: architecture
+    importance: MEDIUM
+    question: Are there forbidden dependency directions between modules/layers?
+    applies_when: { any_dimensions: [backend, library-or-app, python, javascript] }
+    answer_type: free_text
+    sources: [adr]
+  - id: ARCH-EXCEPTION
+    title: Architecture exception policy
+    type: PROCEDURE
+    category: architecture
+    importance: MEDIUM
+    question: How are intentional architecture exceptions recorded?
+    applies_when: { any_dimensions: [architecture, code] }
+    answer_type: choice
+    options: [explicit-exception-record, informal, undecided]
+    sources: [adr, bhawna]

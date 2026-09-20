@@ -1,0 +1,34 @@
+id: dependencies
+title: Dependencies
+version: 1
+items:
+  - id: DEP-ADD
+    title: Adding dependencies
+    type: INVARIANT
+    category: dependencies
+    importance: MEDIUM
+    question: Does adding a runtime dependency require justification or review?
+    applies_when: { any_dimensions: [python, javascript, packaging, uv] }
+    answer_type: choice
+    options: [review-required, unconstrained, undecided]
+    sources: [openssf]
+  - id: DEP-PIN
+    title: Version pinning
+    type: DECISION
+    category: dependencies
+    importance: MEDIUM
+    question: How are dependency versions pinned?
+    applies_when: { any_dimensions: [python, javascript, packaging] }
+    answer_type: choice
+    options: [lockfile, ranges-plus-lockfile, unpinned, undecided]
+    sources: [openssf, slsa]
+  - id: DEP-REPLACE
+    title: Replacing established libraries
+    type: INVARIANT
+    category: dependencies
+    importance: MEDIUM
+    question: May agents replace an established library with a different one without an explicit decision?
+    applies_when: { any_dimensions: [python, javascript, agents] }
+    answer_type: choice
+    options: [explicit-decision-required, unconstrained, undecided]
+    sources: [bhawna]

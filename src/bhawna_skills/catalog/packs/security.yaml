@@ -1,0 +1,69 @@
+id: security
+title: Security
+version: 1
+description: Distilled SSDF/ASVS/SLSA questions. Suggestions until confirmed.
+items:
+  - id: SEC-SECRETS
+    title: Secrets storage
+    type: INVARIANT
+    category: security
+    importance: CRITICAL
+    question: Where may secrets live, and are committed secrets forbidden?
+    applies_when: { sparse_starter: true, any_dimensions: [code, python, javascript, cicd] }
+    answer_type: choice
+    options: [env-or-secret-store-only, committed-forbidden, undecided]
+    sources: [owasp-asvs, github-security, twelve-factor]
+    invariant_templates:
+      - title: No committed secrets
+        statement: "Secrets policy: {answer}. API keys and credentials must not be committed."
+        severity: block
+  - id: SEC-AUTHZ
+    title: Authorization model
+    type: DECISION
+    category: security
+    importance: CRITICAL
+    question: What authorization model does the product use?
+    applies_when: { any_dimensions: [api, backend, frontend] }
+    answer_type: choice
+    options: [rbac, rebac, acl, none, undecided]
+    sources: [owasp-asvs]
+  - id: SEC-DEPS
+    title: Dependency vulnerability scanning
+    type: DETERMINISTIC_GATE
+    category: security
+    importance: HIGH
+    question: Is dependency vulnerability scanning required?
+    applies_when: { any_dimensions: [python, javascript, cicd, packaging] }
+    answer_type: choice
+    options: [required, optional, undecided]
+    sources: [openssf, nist-ssdf]
+  - id: SEC-CI-PERMS
+    title: CI token permissions
+    type: INVARIANT
+    category: security
+    importance: HIGH
+    question: Must CI workflows use least-privilege permissions?
+    applies_when: { any_dimensions: [cicd, github-actions] }
+    answer_type: choice
+    options: [least-privilege-required, unspecified, undecided]
+    sources: [github-security, slsa]
+  - id: SEC-UPLOAD
+    title: File upload / SSRF boundary
+    type: INVARIANT
+    category: security
+    importance: MEDIUM
+    question: Are server-side fetches and uploads restricted to an allowlist or equivalent control?
+    applies_when: { any_dimensions: [api, backend, cloud] }
+    answer_type: choice
+    options: [restricted, unspecified, not_applicable, undecided]
+    sources: [owasp-asvs]
+  - id: SEC-VULN
+    title: Vulnerability reporting
+    type: PROCEDURE
+    category: security
+    importance: MEDIUM
+    question: How are security vulnerabilities reported?
+    applies_when: { any_dimensions: [open-source, code] }
+    answer_type: choice
+    options: [SECURITY.md, private-advisory, email, undecided]
+    sources: [openssf, github-security]
