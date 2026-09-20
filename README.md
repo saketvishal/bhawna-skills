@@ -213,7 +213,7 @@ CI runs the same commands plus a package build and an installed-artifact CLI smo
 
 ## Feedback & Ideas
 
-- [v0.2.0 feedback discussion](https://github.com/saketvishal/bhawna-skills/discussions)
+- [v0.2.0 feedback discussion](https://github.com/saketvishal/bhawna-skills/discussions/2)
 - [GitHub Discussions](https://github.com/saketvishal/bhawna-skills/discussions) (Announcements, Ideas, Q&A, Show and tell)
 - [Bug report](https://github.com/saketvishal/bhawna-skills/issues/new?template=bug.yml)
 - [Feature request](https://github.com/saketvishal/bhawna-skills/issues/new?template=feature.yml)

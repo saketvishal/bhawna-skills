@@ -34,4 +34,4 @@ uv run python examples/run_decision_demos.py
 
 ## Feedback
 
-https://github.com/saketvishal/bhawna-skills/discussions
+https://github.com/saketvishal/bhawna-skills/discussions/2
