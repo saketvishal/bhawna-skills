@@ -11,11 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 SKIP_PREFIXES = ("mailto:", "#")
-# GitHub Pages and the Docs workflow badge 404 until the first deploy from main.
-SKIP_HTTP_SUBSTRINGS = (
-    "https://saketvishal.github.io/bhawna-skills",
-    "actions/workflows/pages.yml/badge.svg",
-)
+SKIP_HTTP_SUBSTRINGS: tuple[str, ...] = ()
 TIMEOUT = 15
 
 TARGETS = [
