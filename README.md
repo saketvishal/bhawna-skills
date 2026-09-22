@@ -210,7 +210,7 @@ uv run ruff check .
 uv run mypy src
 uv run pytest
 uv run bhawna --help
-uv sync --extra docs
+uv sync --extra dev --extra docs
 uv run mkdocs build --strict
 ```
 

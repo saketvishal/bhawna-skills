@@ -15,7 +15,7 @@ uv run bhawna --help
 ## Local docs site
 
 ```bash
-uv sync --extra docs
+uv sync --extra dev --extra docs
 uv run mkdocs serve
 uv run mkdocs build --strict
 ```

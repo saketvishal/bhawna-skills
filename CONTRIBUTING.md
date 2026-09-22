@@ -19,7 +19,7 @@ uv run bhawna --help
 ## Documentation site
 
 ```bash
-uv sync --extra docs
+uv sync --extra dev --extra docs
 uv run mkdocs serve
 uv run mkdocs build --strict
 uv run python scripts/check_links.py
