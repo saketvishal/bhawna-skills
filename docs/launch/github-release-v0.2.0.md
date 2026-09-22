@@ -1,14 +1,14 @@
 Bhawna Skills v0.2.0
 
-Bhawna helps projects remember important engineering decisions and checks a proposed coding-agent objective against *confirmed* rules before implementation starts.
+Bhawna Skills provides decision memory and architecture guardrails for AI coding agents. It preserves durable engineering decisions directly in the repository (`.bhawna/`) and preflights proposed coding-agent objectives against confirmed rules using InvariantGate before implementation begins.
 
-v0.1.0 shipped InvariantGate (`init` / `doctor` / `check`). This release adds a versioned decision catalog, deterministic discovery, and relevance-routed onboarding. Discoveries stay PROPOSED until you confirm them.
+v0.1.0 introduced InvariantGate (`init` / `doctor` / `check`). This release introduces the versioned decision catalog, deterministic stack discovery, relevance-routed onboarding, scoped decisions, and lifecycle tracking. Discoveries remain PROPOSED until you explicitly confirm them.
 
 ## Try it (from source)
 
-PyPI is not published yet (Trusted Publisher still needs a one-time setup on pypi.org).
+PyPI publication is pending one-time Trusted Publisher setup on pypi.org. In the meantime, install and run directly from source:
 
-```
+```bash
 git clone https://github.com/saketvishal/bhawna-skills.git
 cd bhawna-skills
 uv sync --extra dev
@@ -19,19 +19,28 @@ uv run python examples/run_decision_demos.py
 
 ## What this version does
 
-- Inspects lockfiles, manifests, and layout (not the whole repo sent to an LLM)
-- Asks only relevant catalog questions (`--quick` = CRITICAL/HIGH)
-- Records DECISION / INVARIANT / PREFERENCE / PROCEDURE / gates / unresolved items
-- Enforces confirmed invariants via InvariantGate (PASS / REVIEW / BLOCKED)
-- Built-in safety: no auto-confirm, no silent overwrite, no fabricated validation
+- **Decision memory**: Keeps project architectural invariants, preferences, procedures, and gates alongside source code in `.bhawna/`.
+- **Decision catalog**: Includes 19 packs and 90 catalog items spanning architecture, testing, security, CI/CD, data, and agent workflows.
+- **Deterministic discovery**: Inspects lockfiles, manifests, and repository structure without uploading code to an LLM.
+- **Relevance routing & guided onboarding**: Asks only relevant catalog questions (`--quick` filters to CRITICAL/HIGH priority).
+- **Scoped decisions & provenance**: Tracks decision scope (`global`, `path-prefix`, `tag`) and lifecycle states (`PROPOSED`, `CONFIRMED`, `SUPERSEDED`, `DEFERRED`, `UNDECIDED`).
+- **InvariantGate preflight**: Checks proposed coding-agent objectives against confirmed invariants only, returning `PASS`, `REVIEW`, or `BLOCKED`.
+- **Built-in safety**: Enforces non-destructive operation — no auto-confirmations, no silent overwrites, no fabricated validation claims.
+
+## Documentation
+
+Full documentation, architecture guides, and CLI reference:
+https://saketvishal.github.io/bhawna-skills/
 
 ## Limitations
 
-- Alpha. Semantic `bhawna check` needs `BHAWNA_MODEL_URL` and `BHAWNA_MODEL`.
-- `--config-only` is not a semantic safety review.
+- Alpha release. Semantic `bhawna check` evaluation requires an OpenAI-compatible endpoint configured via `BHAWNA_MODEL_URL` and `BHAWNA_MODEL`.
+- `--config-only` validates syntax, schemas, and structural constraints; it is not a semantic safety review.
 - **Live semantic evaluation was not run** in the environment that published this release.
-- Catalog items are guidance until confirmed; they are not universal “best practices.”
+- Catalog items represent structured prompts and guidance until confirmed; they are not universal "best practices" or dogma.
+- Does not claim to eliminate hallucination, drift, or replace human review.
 
-## Feedback
+## Feedback & Discussion
 
+We invite real-world feedback, false-positive/false-negative reports, and architecture edge cases:
 https://github.com/saketvishal/bhawna-skills/discussions/2
