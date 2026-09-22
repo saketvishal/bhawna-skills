@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page.title }} | Bhawna Skills">
+  <meta property="og:description" content="{{ config.site_description }}">
+  <meta property="og:url" content="{{ page.canonical_url }}">
+  <meta property="og:image" content="{{ config.site_url }}assets/social-preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title }} | Bhawna Skills">
+  <meta name="twitter:description" content="{{ config.site_description }}">
+  <meta name="twitter:image" content="{{ config.site_url }}assets/social-preview.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "Bhawna Skills",
+    "description": "{{ config.site_description }}",
+    "url": "{{ config.site_url }}",
+    "codeRepository": "https://github.com/saketvishal/bhawna-skills",
+    "programmingLanguage": "Python",
+    "license": "https://github.com/saketvishal/bhawna-skills/blob/main/LICENSE",
+    "runtimePlatform": "Python 3.11+"
+  }
+  </script>
+{% endblock %}

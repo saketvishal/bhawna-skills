@@ -4,6 +4,8 @@ Drafts only. Do not auto-post to HN, Reddit, LinkedIn, or X.
 
 Current public version: **v0.2.0** (v0.1.0 remains as the first GitHub Release). PyPI is not live until Trusted Publishing is configured on pypi.org.
 
+Canonical docs: https://saketvishal.github.io/bhawna-skills/
+
 | File | Use |
 | --- | --- |
 | [show-hn.md](show-hn.md) | Hacker News Show HN |

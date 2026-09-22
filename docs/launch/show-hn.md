@@ -2,7 +2,7 @@
 
 **Title:** Show HN: Bhawna – help AI coding agents remember project decisions
 
-**URL:** https://github.com/saketvishal/bhawna-skills
+**URL:** https://saketvishal.github.io/bhawna-skills/
 
 ## Body
 

@@ -21,6 +21,8 @@ One-time maintainer steps (if not already done on PyPI):
 
 Until the pending publisher is saved on PyPI, the publish job will fail. That is expected.
 
+Prepared package metadata (summary, keywords, project URLs) already points at GitHub, Discussions, and https://saketvishal.github.io/bhawna-skills/. No extra release is required for SEO until you actually publish to PyPI.
+
 ## After publication
 
 ```bash

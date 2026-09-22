@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saketvishal.github.io/bhawna-skills/sitemap.xml

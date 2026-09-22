@@ -1,18 +1,27 @@
 # Bhawna Skills
 
-**Reusable guardrails that keep AI coding agents aligned with a project's durable decisions.**
+**Decision memory and architecture guardrails for AI coding agents.**
+
+[Docs](https://saketvishal.github.io/bhawna-skills/) · [Getting started](https://saketvishal.github.io/bhawna-skills/getting-started/) · [Feedback](https://github.com/saketvishal/bhawna-skills/discussions/2)
 
 [![CI](https://github.com/saketvishal/bhawna-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/saketvishal/bhawna-skills/actions/workflows/ci.yml)
+[![Docs](https://github.com/saketvishal/bhawna-skills/actions/workflows/pages.yml/badge.svg)](https://github.com/saketvishal/bhawna-skills/actions/workflows/pages.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-## 30-second understanding
+## Problem
 
-**Problem.** AI coding agents can forget or contradict architectural decisions, project rules, tooling choices, and other established invariants.
+AI coding agents (Claude Code, Codex, and similar workflows) can forget or contradict architectural decisions, project invariants, and tooling choices. That shows up as architecture drift.
 
-**Bhawna Skills.** A project decision system: it inspects the repo, identifies relevant decision areas, records confirmed choices, and keeps them available to future coding agents.
+## Who it is for
 
-**InvariantGate.** Checks a proposed objective against *confirmed* invariants before implementation begins. Unconfirmed catalog suggestions are not enforced.
+Developers who run coding agents on a long-lived repository and want repository-owned decision memory plus a preflight before implementation.
+
+## What it does
+
+Bhawna inspects the repo, surfaces **relevant** decision areas, records confirmed choices with provenance, and runs **InvariantGate** so a new objective is checked against confirmed invariants: **PASS**, **REVIEW**, or **BLOCKED**. Unconfirmed catalog suggestions are not enforced.
+
+Docs: [How it works](https://saketvishal.github.io/bhawna-skills/how-it-works/) · [InvariantGate](https://saketvishal.github.io/bhawna-skills/invariant-gate/)
 
 Conceptual example (not production matching logic):
 
@@ -201,6 +210,8 @@ uv run ruff check .
 uv run mypy src
 uv run pytest
 uv run bhawna --help
+uv sync --extra docs
+uv run mkdocs build --strict
 ```
 
 ## Testing

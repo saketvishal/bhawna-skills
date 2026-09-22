@@ -1,5 +1,7 @@
 # Architecture
 
+Public overview of how Bhawna Skills stores **project decisions** and enforces **architecture guardrails**. Product CLI: [Getting started](getting-started.md).
+
 ## Knowledge types
 
 Bhawna does not treat every fact as an invariant.

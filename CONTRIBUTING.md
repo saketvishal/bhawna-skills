@@ -16,6 +16,17 @@ uv run pytest
 uv run bhawna --help
 ```
 
+## Documentation site
+
+```bash
+uv sync --extra docs
+uv run mkdocs serve
+uv run mkdocs build --strict
+uv run python scripts/check_links.py
+```
+
+Public site: https://saketvishal.github.io/bhawna-skills/
+
 ## Pull requests
 
 - Keep changes focused.

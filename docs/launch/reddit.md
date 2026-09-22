@@ -8,7 +8,7 @@
 
 I kept seeing the same pattern: an agent follows the current prompt, then installs pip in a uv repo, or treats a vector index as canonical state.
 
-Bhawna Skills (https://github.com/saketvishal/bhawna-skills) stores decisions in `.bhawna/` and runs InvariantGate on the *objective* before code. v0.2.0 discovers relevant decision areas from the tree; it does not auto-confirm them.
+Bhawna Skills (https://github.com/saketvishal/bhawna-skills, docs: https://saketvishal.github.io/bhawna-skills/) stores decisions in `.bhawna/` and runs InvariantGate on the *objective* before code. v0.2.0 discovers relevant decision areas from the tree; it does not auto-confirm them.
 
 Not claiming it stops drift or hallucinations. I want critique: false flags, misses, and workflows where you would not use this.
 

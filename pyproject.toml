@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bhawna-skills"
 version = "0.2.0"
-description = "Reusable guardrails and skills that check AI coding-agent objectives against repository-owned invariants."
+description = "Decision memory and architecture guardrails for AI coding agents."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -15,10 +15,12 @@ keywords = [
   "ai-agents",
   "coding-agents",
   "agentic-ai",
-  "llm",
+  "ai-coding",
   "developer-tools",
   "guardrails",
   "architecture",
+  "architecture-drift",
+  "project-invariants",
   "spec-driven-development",
   "claude-code",
   "codex",
@@ -51,13 +53,18 @@ dev = [
   "build>=1.2,<2",
   "types-PyYAML>=6,<7",
 ]
+docs = [
+  "mkdocs>=1.6,<2",
+  "mkdocs-material>=9.5,<10",
+]
 
 [project.urls]
-Homepage = "https://github.com/saketvishal/bhawna-skills"
+Homepage = "https://saketvishal.github.io/bhawna-skills/"
 Repository = "https://github.com/saketvishal/bhawna-skills"
 Issues = "https://github.com/saketvishal/bhawna-skills/issues"
+Discussions = "https://github.com/saketvishal/bhawna-skills/discussions"
 Changelog = "https://github.com/saketvishal/bhawna-skills/blob/main/CHANGELOG.md"
-Documentation = "https://github.com/saketvishal/bhawna-skills#readme"
+Documentation = "https://saketvishal.github.io/bhawna-skills/"
 
 [project.scripts]
 bhawna = "bhawna_skills.cli:app"

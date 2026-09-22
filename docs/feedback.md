@@ -2,6 +2,8 @@
 
 Lightweight process. Do not open an implementation issue for every comment. Do not convert feedback into an invariant automatically.
 
+Docs: [https://saketvishal.github.io/bhawna-skills/](https://saketvishal.github.io/bhawna-skills/)
+
 Primary intake:
 
 - [Discussions](https://github.com/saketvishal/bhawna-skills/discussions)

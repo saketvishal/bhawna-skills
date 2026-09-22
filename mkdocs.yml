@@ -1,0 +1,80 @@
+site_name: Bhawna Skills
+site_url: https://saketvishal.github.io/bhawna-skills/
+site_description: >-
+  Bhawna Skills helps AI coding agents preserve project decisions, detect architecture drift,
+  and check new objectives against repository-owned invariants.
+site_author: Bhawna Skills contributors
+repo_url: https://github.com/saketvishal/bhawna-skills
+repo_name: saketvishal/bhawna-skills
+edit_uri: edit/main/docs/
+copyright: MIT License
+
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+exclude_docs: |
+  launch/**
+  RELEASE_NOTES.md
+  publishing.md
+  prior-art.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/saketvishal/bhawna-skills
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - How it works: how-it-works.md
+  - InvariantGate: invariant-gate.md
+  - Project decisions: project-decisions.md
+  - Guided onboarding: guided-onboarding.md
+  - Examples: examples.md
+  - CLI reference: cli.md
+  - Architecture: architecture.md
+  - Contributing: contributing.md
+  - Security: security.md
+  - Feedback: feedback.md
+  - Feedback loop: feedback-loop.md
+  - Search discoverability: search-discoverability.md
+  - Search Console: search-console.md

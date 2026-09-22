@@ -9,5 +9,6 @@ v0.2.0 can inspect a repo and surface relevant questions. It does not assume the
 Alpha. You bring an OpenAI-compatible model endpoint. PyPI is not live yet.
 
 Repo: https://github.com/saketvishal/bhawna-skills
+Docs: https://saketvishal.github.io/bhawna-skills/
 
 If you run agents on a long-lived codebase, I want the cases where you would *not* trust a check like this.
